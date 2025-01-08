@@ -337,7 +337,6 @@ for epoch in range(20000):
     if epoch % 2000 == 0:
         torch.save(model.state_dict(), 'model_state_dict58.pth')
         torch.save(losses, 'loss_list58.pth')
-    5
     loss.backward()
     optimizer.step()
 
