@@ -153,13 +153,13 @@ def position_code_LOS(LOS):
 #     return vertices, faces
 
 def create_scalar_field(dim_x, dim_y, dim_z, model, batch_size=10000):
-    x = torch.linspace(-dim_x/2, dim_x/2, dim_x*2).to(device)
-    y = torch.linspace(-dim_y/2, dim_y/2, dim_y*2).to(device)
-    z = torch.linspace(-dim_z/2, dim_z/2, dim_z*2).to(device)
+    x = torch.linspace(-dim_x/2, dim_x/2, 120*2).to(device)
+    y = torch.linspace(-dim_y/2, dim_y/2, 100*2).to(device)
+    z = torch.linspace(-dim_z/2, dim_z/2, 100*2).to(device)
     xyz = torch.stack(torch.meshgrid(x, y, z, indexing='ij'), dim=-1)
     xyz = xyz.view(-1, 3)
 
-    scalar_field = torch.zeros((dim_x*2, dim_y*2, dim_z*2), dtype=torch.float32).to(device)
+    scalar_field = torch.zeros((120*2, 100*2, 100*2), dtype=torch.float32).to(device)
     for i in range(0, xyz.shape[0], batch_size):
         # 打印进程百分比
         print(f"Progress: {i/xyz.shape[0]*100:.2f}%")
@@ -180,7 +180,7 @@ class field_model(nn.Module):
         xyz = positon_code_xyz(xyz)
         xyzlos = torch.cat([xyz,LOS],dim=1)
         model = NeRF(input_ch=63, input_ch_views=27, use_viewdirs=True).to(self.device)
-        model.load_state_dict(torch.load('./model_state_dict58.pth'))
+        model.load_state_dict(torch.load('./model_state_dict82.pth'))
         model.eval()
         scalar_field = model(xyzlos)[...,0]
         return scalar_field
@@ -191,10 +191,20 @@ def main():
     """
     import torch
     import numpy as np
+    distance_max = 0.6  
+    distance_min = -0.6
+    distance_gap = 100
+    doppler_max = 0.15
+    doppler_min = -0.15
+    doppler_gap = 100
+    n_max = 0.30
+    n_min = -0.30
+    n_gap = 120
 
-    dim_x, dim_y, dim_z = 120, 100, 100
-    threshold = 0.4
-    modelnum = 58
+    dim_x, dim_y, dim_z = 200, 150, 150
+    # dim_x, dim_y, dim_z = 1.2,1.0,1.0
+    threshold = 0.21
+    modelnum = 82
     # 生成模型
     model = field_model(device)
 

@@ -1,0 +1,29 @@
+{
+    "config": null,
+    "experiment_name": "experiment_1",
+    "image_num": 60,
+    "img_height": 100,
+    "img_width": 100,
+    "batchsize": 40,
+    "max_distance": 0.6,
+    "min_distance": -0.6,
+    "distance_interval": 100,
+    "max_doppler": 0.15,
+    "min_doppler": -0.15,
+    "doppler_interval": 100,
+    "max_nsr": 0.3,
+    "min_nsr": -0.3,
+    "nsr_interval": 120,
+    "random_distance": false,
+    "is_doppler": true,
+    "use_positional_encoding": true,
+    "use_isar_nerf": true,
+    "device": "cuda",
+    "dataset_path": "/DATA/disk1/3dmodel/3dmodel/ISAR_NERF/asteroid_image_nerf_new/luoxuan_new",
+    "lr": 5e-05,
+    "model_path": "model/model_2.pth",
+    "loss_path": "loss/loss_list_2.pth",
+    "config_path": "model_parameter/config_params_2.json"
+}
+
+// 对模拟图像进行的训练，得到的结果

@@ -80,3 +80,42 @@ vscode-remote://ssh-remote%2Btarget/DATA/disk1/3dmodel/3dmodel/ISAR_NERF/asteroi
 57:更新了一下螺旋线的结果/DATA/disk1/3dmodel/3dmodel/ISAR_NERF/asteroid_image_nerf_new/task9
 
 58:生成了一个更接近球形基线的模型
+
+
+随后每六个信噪比进行一次实验，使用的实验数据分别为
+/DATA/disk1/3dmodel/3dmodel/ISAR_NERF/asteroid_image_nerf_new/20db_denoise_submean
+/DATA/disk1/3dmodel/3dmodel/ISAR_NERF/asteroid_image_nerf_new/15db_denoise_submean
+/DATA/disk1/3dmodel/3dmodel/ISAR_NERF/asteroid_image_nerf_new/10db_denoise_submean
+/DATA/disk1/3dmodel/3dmodel/ISAR_NERF/asteroid_image_nerf_new/5db_denoise_submean
+/DATA/disk1/3dmodel/3dmodel/ISAR_NERF/asteroid_image_nerf_new/0db_denoise_submean
+/DATA/disk1/3dmodel/3dmodel/ISAR_NERF/asteroid_image_nerf_new/-5db_denoise_submean
+59-64:未去噪结果
+65-70:去噪结果
+71-76:ISAR_NERF渲染公式结果
+77-81:螺旋线的渲染结果
+82：二分之一螺旋线的渲染结果 /DATA/disk1/3dmodel/3dmodel/ISAR_NERF/asteroid_image_nerf_new/luoxuan_new
+
+83:重新反演0dB
+84:重新反演-5dB
+
+85:尝试反演2024on，但是失败了，暂时认为是配准的问题，重新配准后得到结果
+86：重新配准之后得到的结果
+/DATA/disk1/3dmodel/3dmodel/ISAR_NERF/asteroid_image_nerf_new/real_data_reg_2024On
+
+87:对一个拼接起来的球进行重建的结果
+88-92：对不同角度下观察的模型进行重建
+/DATA/disk1/3dmodel/3dmodel/ISAR_NERF/asteroid_image_nerf_new/real_data_reg_2024On_1
+/DATA/disk1/3dmodel/3dmodel/ISAR_NERF/asteroid_image_nerf_new/real_data_reg_2024On_2
+/DATA/disk1/3dmodel/3dmodel/ISAR_NERF/asteroid_image_nerf_new/real_data_reg_2024On_3
+/DATA/disk1/3dmodel/3dmodel/ISAR_NERF/asteroid_image_nerf_new/real_data_reg_2024On_4
+/DATA/disk1/3dmodel/3dmodel/ISAR_NERF/asteroid_image_nerf_new/real_data_reg_2024On_5
+
+93：发现位置编码好像没有作用，尝试得到高频纹理信息 /DATA/disk1/3dmodel/3dmodel/ISAR_NERF/asteroid_image_nerf_new/luoxuan_new
+94：尝试得到高频纹理 /DATA/disk1/3dmodel/3dmodel/ISAR_NERF/asteroid_image_nerf_new/luoxuan_new
+
+95-98:尝试了各种各样的1.坐标归一化2.渲染函数3.位置编码小细节
+最终发现好像ISAR-NeRF的结果没问题，渲染函数确实是该这个样
+
+97:ISAR_NERF
+98:传统渲染方法
+99:真实图像
