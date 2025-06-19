@@ -1,0 +1,4 @@
+实验参数：
+依旧是跑一个球，但是俯仰角变化很小，为了验证，小角度先验是否可用
+
+folder_path = './dataset/sys_data/contact_ball/test02'

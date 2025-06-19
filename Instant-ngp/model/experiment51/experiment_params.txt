@@ -1,0 +1,15 @@
+实验参数: experiment51
+数据集路径: /DATA/disk1/3dmodel/3dmodel/XXX/image1
+实验参数: experiment51
+数据集路径: /DATA/disk1/3dmodel/3dmodel/XXX/image1
+实验参数: experiment51
+数据集路径: /DATA/disk1/3dmodel/3dmodel/XXX/image1
+实验参数: experiment51
+数据集路径: /DATA/disk1/3dmodel/3dmodel/XXX/image1
+实验参数: experiment51
+数据集路径: /DATA/disk1/3dmodel/3dmodel/XXX/image1
+实验参数: experiment51
+数据集路径: /DATA/disk1/3dmodel/3dmodel/XXX/image1
+实验参数: experiment51
+数据集路径: /DATA/disk1/3dmodel/3dmodel/XXX/image1
+平视，不添加e正则

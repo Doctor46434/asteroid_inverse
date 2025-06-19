@@ -1,0 +1,23 @@
+实验参数: experiment35
+数据集路径: ./dataset/sys_data/contact_ball/test01
+实验参数: experiment35
+数据集路径: ./dataset/sys_data/contact_ball/test01
+实验参数: experiment35
+数据集路径: ./dataset/sys_data/contact_ball/test01
+实验参数: experiment35
+数据集路径: ./dataset/sys_data/contact_ball/test01
+实验参数: experiment35
+数据集路径: ./dataset/sys_data/contact_ball/test01
+实验参数: experiment35
+数据集路径: ./dataset/sys_data/contact_ball/test01
+实验参数: experiment35
+数据集路径: ./dataset/sys_data/contact_ball/test01
+实验参数: experiment35
+数据集路径: ./dataset/sys_data/contact_ball/test01
+实验参数: experiment35
+数据集路径: ./dataset/sys_data/contact_ball/test01
+实验参数: experiment35
+数据集路径: ./dataset/sys_data/contact_ball/test01
+实验参数: experiment35
+数据集路径: ./dataset/sys_data/contact_ball/test01
+学习率5e-4

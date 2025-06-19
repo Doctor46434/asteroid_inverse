@@ -1,0 +1,7 @@
+实验参数: experiment37
+数据集路径: ./dataset/sys_data/contact_ball/test01
+实验参数: experiment37
+数据集路径: ./dataset/sys_data/contact_ball/test01
+实验参数: experiment37
+数据集路径: ./dataset/sys_data/contact_ball/test01
+不同学习率下得到的球 1e-4

@@ -1,0 +1,21 @@
+该实验将最后的函数从sigmoid换成了relu+1-exp(-x)得到了更好地收敛结果
+实验参数: experiment07
+数据集路径: ./dataset/real_data/2024on_convert
+实验参数: experiment07
+数据集路径: ./dataset/real_data/2024on_convert
+实验参数: experiment07
+数据集路径: ./dataset/real_data/2024on_convert
+实验参数: experiment07
+数据集路径: ./dataset/real_data/2024on_convert
+实验参数: experiment07
+数据集路径: ./dataset/real_data/2024on_convert
+实验参数: experiment07
+数据集路径: ./dataset/real_data/2024on_convert
+实验参数: experiment07
+数据集路径: ./dataset/real_data/2024on_convert
+实验参数: experiment07
+数据集路径: ./dataset/real_data/2024on_convert
+实验参数: experiment07
+数据集路径: ./dataset/real_data/2024on_convert
+实验参数: experiment07
+数据集路径: ./dataset/real_data/2024on_convert

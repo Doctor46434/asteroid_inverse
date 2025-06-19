@@ -1,0 +1,24 @@
+该实验直接使用relu作为透明度的激活函数，最终得到结果
+
+实验参数: experiment06
+数据集路径: ./dataset/real_data/2024on_convert
+实验参数: experiment06
+数据集路径: ./dataset/real_data/2024on_convert
+实验参数: experiment06
+数据集路径: ./dataset/real_data/2024on_convert
+实验参数: experiment06
+数据集路径: ./dataset/real_data/2024on_convert
+实验参数: experiment06
+数据集路径: ./dataset/real_data/2024on_convert
+实验参数: experiment06
+数据集路径: ./dataset/real_data/2024on_convert
+实验参数: experiment06
+数据集路径: ./dataset/real_data/2024on_convert
+实验参数: experiment06
+数据集路径: ./dataset/real_data/2024on_convert
+实验参数: experiment06
+数据集路径: ./dataset/real_data/2024on_convert
+实验参数: experiment06
+数据集路径: ./dataset/real_data/2024on_convert
+实验参数: experiment06
+数据集路径: ./dataset/real_data/2024on_convert

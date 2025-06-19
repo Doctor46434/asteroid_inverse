@@ -1,0 +1,22 @@
+进行单轨实验
+
+实验参数: experiment08
+数据集路径: ./dataset/real_data/real_data_reg_2024On_13
+实验参数: experiment08
+数据集路径: ./dataset/real_data/real_data_reg_2024On_13
+实验参数: experiment08
+数据集路径: ./dataset/real_data/real_data_reg_2024On_13
+实验参数: experiment08
+数据集路径: ./dataset/real_data/real_data_reg_2024On_13
+实验参数: experiment08
+数据集路径: ./dataset/real_data/real_data_reg_2024On_13
+实验参数: experiment08
+数据集路径: ./dataset/real_data/real_data_reg_2024On_13
+实验参数: experiment08
+数据集路径: ./dataset/real_data/real_data_reg_2024On_13
+实验参数: experiment08
+数据集路径: ./dataset/real_data/real_data_reg_2024On_13
+实验参数: experiment08
+数据集路径: ./dataset/real_data/real_data_reg_2024On_13
+实验参数: experiment08
+数据集路径: ./dataset/real_data/real_data_reg_2024On_13

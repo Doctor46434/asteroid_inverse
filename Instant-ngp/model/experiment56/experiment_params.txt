@@ -1,0 +1,22 @@
+实验参数: experiment56
+数据集路径: ./dataset/real_data/image2
+实验参数: experiment56
+数据集路径: ./dataset/real_data/image2
+实验参数: experiment56
+数据集路径: ./dataset/real_data/image2
+实验参数: experiment56
+数据集路径: ./dataset/real_data/image2
+
+
+斜视仿真，增加5e-5到1e-5e正则实验参数: experiment56
+数据集路径: ./dataset/real_data/image2
+实验参数: experiment56
+数据集路径: ./dataset/real_data/image2
+实验参数: experiment56
+数据集路径: ./dataset/real_data/image2
+实验参数: experiment56
+数据集路径: ./dataset/real_data/image2
+实验参数: experiment56
+数据集路径: ./dataset/real_data/image2
+实验参数: experiment56
+数据集路径: ./dataset/real_data/image2

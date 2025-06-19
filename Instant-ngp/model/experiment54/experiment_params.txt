@@ -1,0 +1,28 @@
+实验参数: experiment54
+数据集路径: ./dataset/real_data/image1
+实验参数: experiment54
+数据集路径: ./dataset/real_data/image1
+实验参数: experiment54
+数据集路径: ./dataset/real_data/image1
+实验参数: experiment54
+数据集路径: ./dataset/real_data/image2
+实验参数: experiment54
+数据集路径: ./dataset/real_data/image2
+实验参数: experiment54
+数据集路径: ./dataset/real_data/image2
+实验参数: experiment54
+数据集路径: ./dataset/real_data/image2
+实验参数: experiment54
+数据集路径: ./dataset/real_data/image2
+实验参数: experiment54
+数据集路径: ./dataset/real_data/image2
+实验参数: experiment54
+数据集路径: ./dataset/real_data/image2
+实验参数: experiment54
+数据集路径: ./dataset/real_data/image2
+实验参数: experiment54
+数据集路径: ./dataset/real_data/image2
+实验参数: experiment54
+数据集路径: ./dataset/real_data/image2
+
+斜视仿真，不增加e正则

@@ -1,0 +1,22 @@
+实验参数: experiment53
+数据集路径: /DATA/disk1/Instant-ngp/dataset/sys_data/toutatis
+实验参数: experiment53
+数据集路径: /DATA/disk1/Instant-ngp/dataset/sys_data/toutatis
+实验参数: experiment53
+数据集路径: /DATA/disk1/Instant-ngp/dataset/sys_data/toutatis
+实验参数: experiment53
+数据集路径: /DATA/disk1/Instant-ngp/dataset/sys_data/toutatis
+实验参数: experiment53
+数据集路径: /DATA/disk1/Instant-ngp/dataset/sys_data/toutatis
+实验参数: experiment53
+数据集路径: /DATA/disk1/Instant-ngp/dataset/sys_data/toutatis
+实验参数: experiment53
+数据集路径: /DATA/disk1/Instant-ngp/dataset/sys_data/toutatis
+实验参数: experiment53
+数据集路径: /DATA/disk1/Instant-ngp/dataset/sys_data/toutatis
+实验参数: experiment53
+数据集路径: /DATA/disk1/Instant-ngp/dataset/sys_data/toutatis
+实验参数: experiment53
+数据集路径: /DATA/disk1/Instant-ngp/dataset/sys_data/toutatis
+
+斜视30度仿真，30张图片

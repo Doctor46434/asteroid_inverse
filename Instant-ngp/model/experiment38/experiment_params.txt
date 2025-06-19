@@ -1,0 +1,5 @@
+实验参数: experiment38
+数据集路径: ./dataset/sys_data/contact_ball/test01
+实验参数: experiment38
+数据集路径: ./dataset/sys_data/contact_ball/test01
+预训练得到一个球，因为断网没有做完

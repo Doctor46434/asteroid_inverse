@@ -1,0 +1,8 @@
+实验参数: experiment02
+数据集路径: ./dataset/sys_data/contact_ball/test01
+实验参数: experiment02
+数据集路径: ./dataset/sys_data/contact_ball/test01
+实验参数: experiment02
+数据集路径: ./dataset/sys_data/contact_ball/test01
+实验参数: experiment02
+数据集路径: ./dataset/sys_data/contact_ball/test01

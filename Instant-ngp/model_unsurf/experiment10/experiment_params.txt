@@ -1,0 +1,2 @@
+实验参数: experiment10
+数据集路径: ./dataset/sys_data/contact_ball/test01

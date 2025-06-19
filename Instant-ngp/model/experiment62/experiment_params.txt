@@ -1,0 +1,10 @@
+实验参数: experiment62
+数据集路径: /DATA/disk1/3dmodel/3dmodel/wangguangxing_mat/15dB
+实验参数: experiment62
+数据集路径: /DATA/disk1/3dmodel/3dmodel/wangguangxing_mat/15dB
+实验参数: experiment62
+数据集路径: /DATA/disk1/3dmodel/3dmodel/wangguangxing_mat/15dB
+实验参数: experiment62
+数据集路径: /DATA/disk1/3dmodel/3dmodel/wangguangxing_mat/15dB
+实验参数: experiment62
+数据集路径: /DATA/disk1/3dmodel/3dmodel/wangguangxing_mat/15dB

@@ -1,0 +1,3 @@
+实验参数：
+减少Los的频率得到的结果 27-15
+dataset/real_data/real_data_reg_2024On_12

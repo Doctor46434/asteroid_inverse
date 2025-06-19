@@ -1,0 +1,8 @@
+使用sigmoid进行试验后的结果
+
+实验参数: experiment05
+数据集路径: ./dataset/real_data/2024on_convert
+实验参数: experiment05
+数据集路径: ./dataset/real_data/2024on_convert
+实验参数: experiment05
+数据集路径: ./dataset/real_data/2024on_convert

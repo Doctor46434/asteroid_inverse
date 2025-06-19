@@ -1,0 +1,27 @@
+实验参数: experiment40
+数据集路径: ./dataset/real_data/real_data_reg_2024On_13
+实验参数: experiment40
+数据集路径: ./dataset/real_data/real_data_reg_2024On_13
+实验参数: experiment40
+数据集路径: ./dataset/real_data/real_data_reg_2024On_13
+实验参数: experiment40
+数据集路径: ./dataset/real_data/real_data_reg_2024On_13
+实验参数: experiment40
+数据集路径: ./dataset/real_data/real_data_reg_2024On_13
+实验参数: experiment40
+数据集路径: ./dataset/real_data/real_data_reg_2024On_13
+实验参数: experiment40
+数据集路径: ./dataset/real_data/real_data_reg_2024On_13
+实验参数: experiment40
+数据集路径: ./dataset/real_data/real_data_reg_2024On_13
+实验参数: experiment40
+数据集路径: ./dataset/real_data/real_data_reg_2024On_13
+实验参数: experiment40
+数据集路径: ./dataset/real_data/real_data_reg_2024On_13
+实验参数: experiment40
+数据集路径: ./dataset/real_data/real_data_reg_2024On_13
+实验参数: experiment40
+数据集路径: ./dataset/real_data/real_data_reg_2024On_13
+实验参数: experiment40
+数据集路径: ./dataset/real_data/real_data_reg_2024On_13
+一轨加正则的结果

@@ -1,0 +1,21 @@
+实验参数: experiment44
+数据集路径: ./dataset/real_data/real_data_reg_2024On_13
+实验参数: experiment44
+数据集路径: ./dataset/real_data/real_data_reg_2024On_13
+实验参数: experiment44
+数据集路径: ./dataset/real_data/real_data_reg_2024On_13
+实验参数: experiment44
+数据集路径: ./dataset/real_data/real_data_reg_2024On_13
+实验参数: experiment44
+数据集路径: ./dataset/real_data/real_data_reg_2024On_13
+实验参数: experiment44
+数据集路径: ./dataset/real_data/real_data_reg_2024On_13
+实验参数: experiment44
+数据集路径: ./dataset/real_data/real_data_reg_2024On_13
+实验参数: experiment44
+数据集路径: ./dataset/real_data/real_data_reg_2024On_13
+实验参数: experiment44
+数据集路径: ./dataset/real_data/real_data_reg_2024On_13
+实验参数: experiment44
+数据集路径: ./dataset/real_data/real_data_reg_2024On_13
+增加少量正则化后的结果

@@ -1,0 +1,21 @@
+实验参数: experiment47
+数据集路径: ./dataset/sys_data/test03
+实验参数: experiment47
+数据集路径: ./dataset/sys_data/test03
+实验参数: experiment47
+数据集路径: ./dataset/sys_data/test03
+实验参数: experiment47
+数据集路径: ./dataset/sys_data/test03
+实验参数: experiment47
+数据集路径: ./dataset/sys_data/test03
+实验参数: experiment47
+数据集路径: ./dataset/sys_data/test03
+实验参数: experiment47
+数据集路径: ./dataset/sys_data/test03
+实验参数: experiment47
+数据集路径: ./dataset/sys_data/test03
+实验参数: experiment47
+数据集路径: ./dataset/sys_data/test03
+实验参数: experiment47
+数据集路径: ./dataset/sys_data/test03
+多轨+eikonal正则
