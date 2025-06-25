@@ -24,6 +24,8 @@ experiement66-72:不同信噪比下32张图片的反演结果
 
 experiment73:0dB信噪比下的不同初值反演结果
 
-experiment74:自己生成的卫星的结果
+experiment74:自己用Image gen生成的卫星的结果
+
+experiment75:重新以30度斜视角生成一遍ARR的结果
 
 7*4个实验全都是卫星的CST反演结果
