@@ -1,0 +1,2 @@
+实验参数: experiment75
+数据集路径: /DATA/disk1/3dmodel/3dmodel/arrokoth/46.7deg

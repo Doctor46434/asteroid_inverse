@@ -198,7 +198,7 @@ def batchrender(omega,LOS,model,doppler_num):
         alphai = 1-torch.exp(-output[:,:,:,0]*distance_delta)
         distance_profile = torch.sum(alphai*output[:,:,:,1]*n_delta*Ti,dim=2)
 
-    return distance_profile
+    return distance_profile,output[:,:,:,0]
 
 def positon_code_xyz(xyz):
     code_len = 10
@@ -327,14 +327,41 @@ def compute_eikonal_samples(model, batch_size=1000):
     
     return eikonal_loss
 
+# 计算1范数损失
+def compute_1norm_samples(model, batch_size=1000):
+    """单独采样点用于计算Eikonal损失"""
+    # 在[-0.6, 0.6]范围内随机采样点
+    samples = torch.rand(batch_size, 3).to(device) * 1.2 - 0.6
+    samples.requires_grad_(True)
+    
+    # 随机视角方向
+    random_dirs = torch.randn(batch_size, 3).to(device)
+    random_dirs = random_dirs / torch.norm(random_dirs, dim=1, keepdim=True)
+    
+    # 对点和方向进行编码
+    samples_encoded = positon_code_xyz(samples.view(1, 1, batch_size, 3)).view(batch_size, 63)
+    dirs_encoded = position_code_LOS(random_dirs).view(batch_size, 15)
+    
+    # 组合输入
+    model_input = torch.cat([samples_encoded, dirs_encoded], dim=1)
+    
+    # 前向传播
+    output = model(model_input)
+    density = output[:, 0]  # 只取密度值
+
+    # 计算1范数损失
+    norm_loss = torch.sum(density)
+    
+    return norm_loss
+
 device = torch.device("cuda:1" if torch.cuda.is_available() else "cpu")
 print(torch.cuda.is_available())
 
 # 载入数据
-folder_path = '/DATA/disk1/3dmodel/3dmodel/wangguangxing_mat/15dB'
+folder_path = '/DATA/disk1/3dmodel/3dmodel/arrokoth/46.7deg'
 
 # 生成保存路径
-experiment_name = 'experiment66'
+experiment_name = 'experiment75'
 if not os.path.exists('./model/'+ experiment_name):
     os.makedirs('./model/'+ experiment_name)
 
@@ -372,22 +399,46 @@ losses = []
 # 数据
 image_hight = 100
 image_width = 100
-image_num = 32
+image_num = 30
 
 for epoch in range(20000):
     # 对数据进行随机采样，得到给定batch_size的数据集
     omegas_batch_tensor,LOS_dirs_batch_tensor,range_profile_batch_tensor,doppler_profil_num_tensor = random_sample(images,LOS_dirs,omegas,batch_size = 40,image_num=image_num,image_hight=image_hight)
     # 对该方向的数据进行渲染
-    distance_profile_batch = batchrender(omegas_batch_tensor*omega_real,LOS_dirs_batch_tensor,model,doppler_profil_num_tensor)
+    distance_profile_batch,alpha = batchrender(omegas_batch_tensor*omega_real,LOS_dirs_batch_tensor,model,doppler_profil_num_tensor)
     # # # 单独计算Eikonal损失
     # eikonal_loss = compute_eikonal_samples(model, batch_size=1000)
     # # # 调整Eikonal损失的权重
     # weight_eikonal = adjust_eikonal_weight(epoch)
+
+    # print(f"alpha requires_grad: {alpha.requires_grad}")
+    # print(f"alpha has grad_fn: {hasattr(alpha, 'grad_fn')}")
+    # print(f"alpha grad_fn: {alpha.grad_fn}")
+
+    # 计算1范数损失
+    norm_loss = 5e-4 * compute_1norm_samples(model, batch_size=1000)
+
     optimizer.zero_grad()
     # 计算损失函数
     distance_profile_batch_detach = distance_profile_batch.detach()
     # loss = torch.sum((distance_profile_batch-range_profile_batch_tensor)**2) + weight_eikonal * eikonal_loss
-    loss = torch.sum((distance_profile_batch-range_profile_batch_tensor)**2)
+    # 损失共由三部分组成
+    loss1 = torch.sum((distance_profile_batch-range_profile_batch_tensor)**2)
+    # loss2 = adjust_eikonal_weight(epoch)*compute_eikonal_samples(model, batch_size=1000)
+    # 当轮数小于1000时，loss3不参与loss计算
+    # 总是计算loss3，但在epoch<1000时分离它
+    loss3 = 1e-6 * torch.sum(alpha**2)
+
+    epoch_factor = 0  # 0.0 或 1.0
+    loss = loss1
+
+    print("Current epoch:",epoch,end=' ')
+    print("Current loss:",loss.item())
+    print("Current loss_1", loss1.item(), end=' ')
+    print("Current loss_3", norm_loss.item(), end=' ')
+
+
+
     
     adjust_learning_rate(optimizer,epoch,lr=5e-4)
 
@@ -426,8 +477,7 @@ for epoch in range(20000):
     # for name,param in model.named_parameters():
     #     print(param.grad)
 
-    print("Current epoch:",epoch,end=' ')
-    print("Current loss:",loss)
+
     losses.append(loss)
 
 # 记得要更改的实验参数有
