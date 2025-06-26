@@ -331,10 +331,10 @@ device = torch.device("cuda:1" if torch.cuda.is_available() else "cpu")
 print(torch.cuda.is_available())
 
 # 载入数据
-folder_path = '/DATA/disk1/3dmodel/3dmodel/wangguangxing_mat/15dB'
+folder_path = '/DATA/disk1/asteroid/asteroid_inverse/3dmodel copy/3dmodel/wx_inverse1'
 
 # 生成保存路径
-experiment_name = 'experiment66'
+experiment_name = 'experiment100'
 if not os.path.exists('./model/'+ experiment_name):
     os.makedirs('./model/'+ experiment_name)
 
