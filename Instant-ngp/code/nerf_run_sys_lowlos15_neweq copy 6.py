@@ -108,8 +108,8 @@ def batchrender(omega,LOS,model,doppler_num):
     c = torch.tensor([299792458]).to(device)
     lambda0 = c/fc
     # 确定网格参数
-    distance_max = 0.60
-    distance_min = -0.60
+    distance_max = 0.6
+    distance_min = -0.6
     distance_gap = 100
     doppler_max = 0.15
     doppler_min = -0.15
@@ -168,7 +168,7 @@ def batchrender(omega,LOS,model,doppler_num):
         xyz = doppler_map[torch.arange(batch_size),doppler_num,:].unsqueeze(1).unsqueeze(2) + distance_map.unsqueeze(2) + n_random_map
         xyz_coding = positon_code_xyz(xyz)
         LOS_coding = position_code_LOS(LOS)
-        LOS_coding = ((LOS_coding.unsqueeze(1).unsqueeze(2))*torch.ones(batch_size,distance_gap,n_gap,15).to(device)).view(-1,15)
+        LOS_coding = ((LOS_coding.unsqueeze(1).unsqueeze(2))*torch.ones(batch_size,distance_gap,n_gap,27).to(device)).view(-1,27)
         xyzLOS_coding = torch.cat((xyz_coding,LOS_coding),dim=1)
     else:
         xyz = doppler_map[torch.arange(batch_size),doppler_num,:].unsqueeze(1).unsqueeze(2) + distance_map.unsqueeze(2) + n_random_map
@@ -198,7 +198,7 @@ def batchrender(omega,LOS,model,doppler_num):
         alphai = 1-torch.exp(-output[:,:,:,0]*distance_delta)
         distance_profile = torch.sum(alphai*output[:,:,:,1]*n_delta*Ti,dim=2)
 
-    return distance_profile
+    return distance_profile,output[:,:,:,0]
 
 def positon_code_xyz(xyz):
     code_len = 10
@@ -214,7 +214,7 @@ def positon_code_xyz(xyz):
     return position_coding
 
 def position_code_LOS(LOS):
-    code_len = 2
+    code_len = 4
     batch_size,dimension = LOS.shape
     position_coding = torch.zeros_like(LOS).to(device)
     position_coding = position_coding.repeat(1,code_len*2)
@@ -304,7 +304,7 @@ def compute_eikonal_samples(model, batch_size=1000):
     
     # 对点和方向进行编码
     samples_encoded = positon_code_xyz(samples.view(1, 1, batch_size, 3)).view(batch_size, 63)
-    dirs_encoded = position_code_LOS(random_dirs).view(batch_size, 15)
+    dirs_encoded = position_code_LOS(random_dirs).view(batch_size, 27)
     
     # 组合输入
     model_input = torch.cat([samples_encoded, dirs_encoded], dim=1)
@@ -327,31 +327,58 @@ def compute_eikonal_samples(model, batch_size=1000):
     
     return eikonal_loss
 
+# 计算1范数损失
+def compute_1norm_samples(model, batch_size=1000):
+    """单独采样点用于计算Eikonal损失"""
+    # 在[-0.6, 0.6]范围内随机采样点
+    samples = torch.rand(batch_size, 3).to(device) * 1.2 - 0.6
+    samples.requires_grad_(True)
+    
+    # 随机视角方向
+    random_dirs = torch.randn(batch_size, 3).to(device)
+    random_dirs = random_dirs / torch.norm(random_dirs, dim=1, keepdim=True)
+    
+    # 对点和方向进行编码
+    samples_encoded = positon_code_xyz(samples.view(1, 1, batch_size, 3)).view(batch_size, 63)
+    dirs_encoded = position_code_LOS(random_dirs).view(batch_size, 15)
+    
+    # 组合输入
+    model_input = torch.cat([samples_encoded, dirs_encoded], dim=1)
+    
+    # 前向传播
+    output = model(model_input)
+    density = output[:, 0]  # 只取密度值
+
+    # 计算1范数损失
+    norm_loss = torch.sum(density)
+    
+    return norm_loss
+
 device = torch.device("cuda:2" if torch.cuda.is_available() else "cpu")
 print(torch.cuda.is_available())
 
 # 载入数据
-folder_path = '/DATA/disk1/3dmodel/3dmodel/wangguangxing_mat/12.5dB'
+folder_path = '/DATA/disk1/asteroid/asteroid_inverse/ImageGen/3dmodel/2024on_submean_reverse_100/20du'
 
 # 生成保存路径
-experiment_name = 'experiment67'
-if not os.path.exists('./model/'+ experiment_name):
-    os.makedirs('./model/'+ experiment_name)
+experiment_name = 'experiment85'
+if not os.path.exists('./Instant-ngp/model/'+ experiment_name):
+    os.makedirs('./Instant-ngp/model/'+ experiment_name)
 
 images,LOS_dirs,omegas = loaddata(folder_path)
 
 #载入模型
-model = NeRF(input_ch = 63, input_ch_views = 15, use_viewdirs = True).to(device)
+model = NeRF(input_ch = 63, input_ch_views = 27, use_viewdirs = True).to(device)
 
-# 指定预训练模型的路径
-pretrained_model_path = '/DATA/disk1/Instant-ngp/model/experiment65/model_state_dict.pth'  # 修改为您的预训练模型路径
+# # 指定预训练模型的路径
+# pretrained_model_path = '/DATA/disk1/asteroid/asteroid_inverse/Instant-ngp/model/experiment79/model_state_dict.pth'  # 修改为您的预训练模型路径
 
-if os.path.exists(pretrained_model_path):
-    print(f"正在加载预训练模型: {pretrained_model_path}")
-    model.load_state_dict(torch.load(pretrained_model_path, map_location=device))
-    print("预训练模型加载成功!")
-else:
-    print(f"找不到预训练模型: {pretrained_model_path}，将使用随机初始化")
+# if os.path.exists(pretrained_model_path):
+#     print(f"正在加载预训练模型: {pretrained_model_path}")
+#     model.load_state_dict(torch.load(pretrained_model_path, map_location=device))
+#     print("预训练模型加载成功!")
+# else:
+#     print(f"找不到预训练模型: {pretrained_model_path}，将使用随机初始化")
 
 optimizer = optim.Adam(model.parameters(), lr=5e-7)
 # model.load_state_dict(torch.load('./model_state_dict14.pth'))
@@ -372,22 +399,46 @@ losses = []
 # 数据
 image_hight = 100
 image_width = 100
-image_num = 32
+image_num = 37
 
 for epoch in range(20000):
     # 对数据进行随机采样，得到给定batch_size的数据集
     omegas_batch_tensor,LOS_dirs_batch_tensor,range_profile_batch_tensor,doppler_profil_num_tensor = random_sample(images,LOS_dirs,omegas,batch_size = 40,image_num=image_num,image_hight=image_hight)
     # 对该方向的数据进行渲染
-    distance_profile_batch = batchrender(omegas_batch_tensor*omega_real,LOS_dirs_batch_tensor,model,doppler_profil_num_tensor)
+    distance_profile_batch,alpha = batchrender(omegas_batch_tensor*omega_real,LOS_dirs_batch_tensor,model,doppler_profil_num_tensor)
     # # # 单独计算Eikonal损失
     # eikonal_loss = compute_eikonal_samples(model, batch_size=1000)
     # # # 调整Eikonal损失的权重
     # weight_eikonal = adjust_eikonal_weight(epoch)
+
+    # print(f"alpha requires_grad: {alpha.requires_grad}")
+    # print(f"alpha has grad_fn: {hasattr(alpha, 'grad_fn')}")
+    # print(f"alpha grad_fn: {alpha.grad_fn}")
+
+    # 计算1范数损失
+    # norm_loss = 5e-4 * compute_1norm_samples(model, batch_size=1000)
+
     optimizer.zero_grad()
     # 计算损失函数
     distance_profile_batch_detach = distance_profile_batch.detach()
     # loss = torch.sum((distance_profile_batch-range_profile_batch_tensor)**2) + weight_eikonal * eikonal_loss
-    loss = torch.sum((distance_profile_batch-range_profile_batch_tensor)**2)
+    # 损失共由三部分组成
+    loss1 = torch.sum((distance_profile_batch-range_profile_batch_tensor)**2)
+    # loss2 = adjust_eikonal_weight(epoch)*compute_eikonal_samples(model, batch_size=1000)
+    # 当轮数小于1000时，loss3不参与loss计算
+    # 总是计算loss3，但在epoch<1000时分离它
+    loss3 = 1e-6 * torch.sum(alpha**2)
+
+    epoch_factor = 0  # 0.0 或 1.0
+    loss = loss1
+
+    print("Current epoch:",epoch,end=' ')
+    print("Current loss:",loss.item())
+    # print("Current loss_1", loss1.item(), end=' ')
+    # print("Current loss_3", norm_loss.item(), end=' ')
+
+
+
     
     adjust_learning_rate(optimizer,epoch,lr=5e-4)
 
@@ -408,13 +459,13 @@ for epoch in range(20000):
     #     distance_profile_batch = batchrender(omegas_batch_tensor*omega_real,LOS_dirs_batch_tensor,model,doppler_profil_num_tensor)
     if epoch % 20 == 0:
         print("Current learning rate: ", optimizer.param_groups[0]['lr'] , end=' ')
-    if epoch % 2000 == 0:
-        torch.save(model.state_dict(), './model/'+ experiment_name + '/model_state_dict.pth')
-        torch.save(losses, './model/'+ experiment_name + '/loss_list.pth')
+    if epoch % 500 == 0:
+        torch.save(model.state_dict(), './Instant-ngp/model/'+ experiment_name + '/model_state_dict.pth')
+        torch.save(losses, './Instant-ngp/model/'+ experiment_name + '/loss_list.pth')
         # 生成txt文档
 
         # 保存一个txt文件，用于解释当前的实验参数
-        with open('./model/'+ experiment_name + '/experiment_params.txt', 'a') as f:
+        with open('./Instant-ngp/model/'+ experiment_name + '/experiment_params.txt', 'a') as f:
             f.write(f'实验参数: {experiment_name}\n')
             # 记录数据集路径
             f.write(f'数据集路径: {folder_path}\n')
@@ -426,8 +477,7 @@ for epoch in range(20000):
     # for name,param in model.named_parameters():
     #     print(param.grad)
 
-    print("Current epoch:",epoch,end=' ')
-    print("Current loss:",loss)
+
     losses.append(loss)
 
 # 记得要更改的实验参数有

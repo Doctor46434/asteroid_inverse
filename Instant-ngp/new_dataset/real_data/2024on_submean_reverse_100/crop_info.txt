@@ -1,0 +1,5 @@
+裁剪信息:
+输入文件夹: D:/code_python/asteroid_process/2024on_submean_reverse
+输出文件夹: D:/code_python/asteroid_process/2024on_submean_reverse_100
+裁剪尺寸: 100x100
+处理图像数量: 38/38
