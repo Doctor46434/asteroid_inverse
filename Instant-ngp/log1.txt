@@ -92,6 +92,10 @@ wangguanxing 实验全是27的
 
 
 
+133-138:30db到5db的arr
+139:没有噪声的arr
+140:前面两个都是半圈的，试一下一圈的arr
+
 记录一下使用的实验
 
 1. 用了一个sigmoid结果和一个relu结果，分别是experiment79 和 87
