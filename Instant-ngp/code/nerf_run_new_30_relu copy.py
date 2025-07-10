@@ -239,7 +239,7 @@ def loaddata(folder_path):
     files = [item for item in items if os.path.isfile(os.path.join(folder_path, item)) and item.endswith('.npz')]
     files_sorted = sorted(files, key=natural_sort_key)
     # 从files_sorted中随机选择16个文件
-    files_sorted = random.sample(files_sorted, 8)
+    # files_sorted = random.sample(files_sorted, 16)
     print("当前载入的数据集为：", files_sorted)
     #载入数据
     images = []
@@ -361,10 +361,10 @@ device = torch.device("cuda:2" if torch.cuda.is_available() else "cpu")
 print(torch.cuda.is_available())
 
 # 载入数据
-folder_path = '/DATA/disk1/asteroid/asteroid_inverse/ImageGen/3dmodel/wangguangxing_mat/12.5dB'
+folder_path = '/DATA/disk1/asteroid/asteroid_inverse/Instant-ngp/new_dataset/sys_data/arr/30du_25dB'
 
 # 生成保存路径
-experiment_name = 'experiment128'
+experiment_name = 'experiment134'
 if not os.path.exists('./Instant-ngp/model/'+ experiment_name):
     os.makedirs('./Instant-ngp/model/'+ experiment_name)
 
@@ -373,15 +373,15 @@ images,LOS_dirs,omegas = loaddata(folder_path)
 #载入模型
 model = NeRF(input_ch = 63, input_ch_views = 27, use_viewdirs = True).to(device)
 
-# 指定预训练模型的路径
-pretrained_model_path = '/DATA/disk1/asteroid/asteroid_inverse/Instant-ngp/model/experiment108/model_state_dict.pth'  # 修改为您的预训练模型路径
+# # 指定预训练模型的路径
+# pretrained_model_path = '/DATA/disk1/asteroid/asteroid_inverse/Instant-ngp/model/experiment108/model_state_dict.pth'  # 修改为您的预训练模型路径
 
-if os.path.exists(pretrained_model_path):
-    print(f"正在加载预训练模型: {pretrained_model_path}")
-    model.load_state_dict(torch.load(pretrained_model_path, map_location=device))
-    print("预训练模型加载成功!")
-else:
-    print(f"找不到预训练模型: {pretrained_model_path}，将使用随机初始化")
+# if os.path.exists(pretrained_model_path):
+#     print(f"正在加载预训练模型: {pretrained_model_path}")
+#     model.load_state_dict(torch.load(pretrained_model_path, map_location=device))
+#     print("预训练模型加载成功!")
+# else:
+#     print(f"找不到预训练模型: {pretrained_model_path}，将使用随机初始化")
 
 optimizer = optim.Adam(model.parameters(), lr=5e-7)
 # model.load_state_dict(torch.load('./model_state_dict14.pth'))
@@ -402,7 +402,7 @@ losses = []
 # 数据
 image_hight = 100
 image_width = 100
-image_num = 8
+image_num = 30
 
 for epoch in range(20000):
     # 对数据进行随机采样，得到给定batch_size的数据集
