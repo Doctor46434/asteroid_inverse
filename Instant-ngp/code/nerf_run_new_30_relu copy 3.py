@@ -373,15 +373,15 @@ images,LOS_dirs,omegas = loaddata(folder_path)
 #载入模型
 model = NeRF(input_ch = 63, input_ch_views = 27, use_viewdirs = True).to(device)
 
-# # 指定预训练模型的路径
-# pretrained_model_path = '/DATA/disk1/asteroid/asteroid_inverse/Instant-ngp/model/experiment108/model_state_dict.pth'  # 修改为您的预训练模型路径
+# 指定预训练模型的路径
+pretrained_model_path = '/DATA/disk1/asteroid/asteroid_inverse/Instant-ngp/model/experiment151/model_state_dict.pth'  # 修改为您的预训练模型路径
 
-# if os.path.exists(pretrained_model_path):
-#     print(f"正在加载预训练模型: {pretrained_model_path}")
-#     model.load_state_dict(torch.load(pretrained_model_path, map_location=device))
-#     print("预训练模型加载成功!")
-# else:
-#     print(f"找不到预训练模型: {pretrained_model_path}，将使用随机初始化")
+if os.path.exists(pretrained_model_path):
+    print(f"正在加载预训练模型: {pretrained_model_path}")
+    model.load_state_dict(torch.load(pretrained_model_path, map_location=device))
+    print("预训练模型加载成功!")
+else:
+    print(f"找不到预训练模型: {pretrained_model_path}，将使用随机初始化")
 
 optimizer = optim.Adam(model.parameters(), lr=5e-7)
 # model.load_state_dict(torch.load('./model_state_dict14.pth'))

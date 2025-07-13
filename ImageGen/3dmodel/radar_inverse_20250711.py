@@ -29,6 +29,7 @@ from pytorch3d.vis.plotly_vis import plot_batch_individually
 from pytorch3d.ops.points_normals import estimate_pointcloud_normals
 from pytorch3d.ops.mesh_face_areas_normals import mesh_face_areas_normals
 from torch.autograd import gradcheck
+import os
 
 def gaussian_pdf(x, mu, sigma):
     const = 1.0
@@ -90,8 +91,7 @@ def plot_pointcloud(mesh, title=""):
     ax.axis('equal')
     plt.show()
 
-import os
-
+# 设置matplotlib的显示参数
 mpl.rcParams['savefig.dpi'] = 80
 mpl.rcParams['figure.dpi'] = 80
 
@@ -106,142 +106,126 @@ else:
 # 整体放缩系数
 scale_all = 0.05
 
-# 载入一个模型
-trg_obj = './ImageGen/3dmodel/Geographos Radar-based, low-res(1).obj'
-# trg_obj = 'dolphin.obj'
-# trg_obj = 'wx_origin.obj'
-# 读取卫星各项参数
-# We read the target 3D model using load_obj
-verts, faces, aux = load_obj(trg_obj)
 
-# verts is a FloatTensor of shape (V, 3) where V is the number of vertices in the mesh
-# faces is an object which contains the following LongTensors: verts_idx, normals_idx and textures_idx
-# For this tutorial, normals and textures are ignored.
-faces_idx = faces.verts_idx.to(device)
-verts = verts.to(device)
+# 载入初始模型方式
+# 选择一种载入初始模型的方法
+flag = 0
+if flag == 0:
+    # 载入一个已有的Mesh模型
+    trg_obj = './ImageGen/3dmodel/Geographos Radar-based, low-res(1).obj'
+    # trg_obj = 'dolphin.obj'
+    # trg_obj = 'wx_origin.obj'
+    # 读取卫星各项参数
+    # We read the target 3D model using load_obj
+    verts, faces, aux = load_obj(trg_obj)
 
-# We scale normalize and center the target mesh to fit in a sphere of radius 1 centered at (0,0,0). 
-# (scale, center) will be used to bring the predicted mesh to its original center and scale
-# Note that normalizing the target mesh, speeds up the optimization but is not necessary!
-center = verts.mean(0)
-verts = verts - center
-scale = max(verts.abs().max(0)[0])
-verts = verts / scale *10
+    # verts is a FloatTensor of shape (V, 3) where V is the number of vertices in the mesh
+    # faces is an object which contains the following LongTensors: verts_idx, normals_idx and textures_idx
+    # For this tutorial, normals and textures are ignored.
+    faces_idx = faces.verts_idx.to(device)
+    verts = verts.to(device)
 
-# We construct a Meshes structure for the target mesh
-trg_mesh = Meshes(verts=[verts], faces=[faces_idx])
+    # We scale normalize and center the target mesh to fit in a sphere of radius 1 centered at (0,0,0). 
+    # (scale, center) will be used to bring the predicted mesh to its original center and scale
+    # Note that normalizing the target mesh, speeds up the optimization but is not necessary!
+    center = verts.mean(0)
+    verts = verts - center
+    scale = max(verts.abs().max(0)[0])
+    verts = verts / scale *10
 
-
-# 为mesh添加材质信息
-verts_rgb = torch.ones_like(trg_mesh.verts_packed())*255  # 使用纯白色作为默认颜色
-verts_rgb = verts_rgb.unsqueeze(0)
-textures = TexturesVertex(verts_features=verts_rgb)
-trg_mesh.textures = textures
-
-src_mesh = trg_mesh
-
-# # 可视化src_mesh
-# plot_pointcloud(src_mesh, title="Target mesh")
-
-# 创建初始模型，两个球体
-sphere1 = ico_sphere(4, device)
-sphere2 = ico_sphere(4, device)
-
-# 将第一个球体放大到1.5倍
-vert1 = sphere2.verts_packed()
-vert1 = vert1 * 1.5
-sphere2 = Meshes(verts=[vert1], faces=[sphere2.faces_packed()])
-
-# 计算放大后的球体的最大x坐标
-max_x1 = sphere1.verts_packed()[:, 0].max()
-# 计算第二个球体的最小x坐标
-min_x2 = sphere2.verts_packed()[:, 0].min()
-
-# 计算平移量，确保两球体有适当重叠
-overlap = 0.1
-shift = max_x1 - min_x2 + overlap
-
-# 获取第二个球体的顶点并进行x方向平移
-verts2 = sphere2.verts_packed() + torch.tensor([shift, 0, 0], device=device)
-
-# 获取第一个球体的顶点（已经放大）
-verts1 = sphere1.verts_packed()
-
-# 合并两球体的顶点
-verts = torch.cat([verts1, verts2], dim=0)
-
-# 可以额外添加整体平移
-verts = verts + torch.tensor([-1.5, 0, 0], device=device)
-
-# 整体放缩
-verts = verts * 3
-
-# 合并面片，并更新第二个球体的面片索引
-faces1 = sphere1.faces_packed()
-faces2 = sphere2.faces_packed() + sphere1.verts_packed().shape[0]  # 更新索引
-
-# 合并面片数据
-faces = torch.cat([faces1, faces2], dim=0)
-
-# 创建黏连的球体网格
-src_mesh = Meshes(verts=[verts], faces=[faces])
+    # We construct a Meshes structure for the target mesh
+    trg_mesh = Meshes(verts=[verts], faces=[faces_idx])
 
 
-# verts = src_mesh.verts_packed()
-# faces = src_mesh.faces_packed()
-# scaled_verts = verts * 2
+    # 为mesh添加材质信息
+    verts_rgb = torch.ones_like(trg_mesh.verts_packed())*255  # 使用纯白色作为默认颜色
+    verts_rgb = verts_rgb.unsqueeze(0)
+    textures = TexturesVertex(verts_features=verts_rgb)
+    trg_mesh.textures = textures
 
+    src_mesh = trg_mesh
+if flag == 1:
+    # 载入双球模型
 
-# 创建椭球体模型
+    # 创建初始模，两个球体
+    sphere1 = ico_sphere(4, device)
+    sphere2 = ico_sphere(4, device)
 
-def create_ellipsoid(level, device, scale_factors=(1.5, 1.0, 0.7)):
-    """
-    创建椭球体
+    # 将第一个球体放大到1.5倍
+    vert1 = sphere2.verts_packed()
+    vert1 = vert1 * 1.5
+    sphere2 = Meshes(verts=[vert1], faces=[sphere2.faces_packed()])
+
+    # 计算放大后的球体的最大x坐标
+    max_x1 = sphere1.verts_packed()[:, 0].max()
+    # 计算第二个球体的最小x坐标
+    min_x2 = sphere2.verts_packed()[:, 0].min()
+
+    # 计算平移量，确保两球体有适当重叠
+    overlap = 0.1
+    shift = max_x1 - min_x2 + overlap
+
+    # 获取第二个球体的顶点并进行x方向平移
+    verts2 = sphere2.verts_packed() + torch.tensor([shift, 0, 0], device=device)
+
+    # 获取第一个球体的顶点（已经放大）
+    verts1 = sphere1.verts_packed()
+
+    # 合并两球体的顶点
+    verts = torch.cat([verts1, verts2], dim=0)
+
+    # 可以额外添加整体平移
+    verts = verts + torch.tensor([-1.5, 0, 0], device=device)
+
+    # 整体放缩
+    verts = verts * 3
+
+    # 合并面片，并更新第二个球体的面片索引
+    faces1 = sphere1.faces_packed()
+    faces2 = sphere2.faces_packed() + sphere1.verts_packed().shape[0]  # 更新索引
+
+    # 合并面片数据
+    faces = torch.cat([faces1, faces2], dim=0)
+
+    # 创建黏连的球体网格
+    src_mesh = Meshes(verts=[verts], faces=[faces])
+
+if flag == 2:
+    def create_ellipsoid(level, device, scale_factors=(1.5, 1.0, 0.7)):
+        """
+        创建椭球体
+        
+        参数:
+            level: ico_sphere 的细分级别
+            device: 计算设备
+            scale_factors: (x, y, z) 缩放因子
+        """
+        # 创建基础球体
+        sphere = ico_sphere(level, device)
+        
+        # 获取球体的顶点和面
+        verts = sphere.verts_packed()
+        faces = sphere.faces_packed()
+        
+        # 对顶点进行缩放以形成椭球体
+        x_scale, y_scale, z_scale = scale_factors
+        scaled_verts = verts.clone()
+        scaled_verts[:, 0] *= x_scale  # x方向缩放
+        scaled_verts[:, 1] *= y_scale  # y方向缩放
+        scaled_verts[:, 2] *= z_scale  # z方向缩放
+        
+        # 创建新的网格
+        ellipsoid = Meshes(verts=[scaled_verts], faces=[faces])
+        
+        return ellipsoid
     
-    参数:
-        level: ico_sphere 的细分级别
-        device: 计算设备
-        scale_factors: (x, y, z) 缩放因子
-    """
-    # 创建基础球体
-    sphere = ico_sphere(level, device)
-    
-    # 获取球体的顶点和面
-    verts = sphere.verts_packed()
-    faces = sphere.faces_packed()
-    
-    # 对顶点进行缩放以形成椭球体
-    x_scale, y_scale, z_scale = scale_factors
-    scaled_verts = verts.clone()
-    scaled_verts[:, 0] *= x_scale  # x方向缩放
-    scaled_verts[:, 1] *= y_scale  # y方向缩放
-    scaled_verts[:, 2] *= z_scale  # z方向缩放
-    
-    # 创建新的网格
-    ellipsoid = Meshes(verts=[scaled_verts], faces=[faces])
-    
-    return ellipsoid
+    sphere1 = create_ellipsoid(4, device, scale_factors=(2.0, 1.0, 1.0))
 
-sphere1 = create_ellipsoid(4, device, scale_factors=(2.0, 1.0, 1.0))
+    vert = sphere1.verts_packed()
+    vert = vert * 3
 
-vert = sphere1.verts_packed()
-vert = vert * 3
+    src_mesh = Meshes(verts=[vert], faces=[sphere1.faces_packed()])
 
-# # 将模型绕y轴旋转90度
-# theta = torch.tensor(torch.pi / 2).to(device)
-# # 旋转矩阵 (绕y轴)
-# R = torch.tensor([
-#     [torch.cos(theta), -torch.sin(theta), 0],
-#     [torch.sin(theta),  torch.cos(theta), 0],
-#     [0,                0,                1]
-# ], dtype=torch.float32).to(device)
-# vert = vert @ R.T
-
-src_mesh = Meshes(verts=[vert], faces=[sphere1.faces_packed()])
-
-
-# # 绘制初始情况下的src_mesh
-# plot_pointcloud(src_mesh, "Source mesh")
 import re
 
 def natural_sort_key(s):
@@ -301,7 +285,7 @@ image_trg = image_input/max_values_dim1.unsqueeze(1).unsqueeze(2)
 # 第零维倒序
 # image_trg = torch.flip(image_trg, dims=[0])
 
-# 生成37组雷达视线方向
+# 生成雷达视线方向
 def vec_rot(vec,axis_x,axis_y,axis_z,theta):
 
     axis_x = axis_x.expand(theta.shape)
@@ -351,50 +335,6 @@ image_src = torch.abs(image_src)
 max1,_ = torch.max(image_src,dim=2)
 max2,_ = torch.max(max1,dim=1)
 image_src = image_src/max2.unsqueeze(1).unsqueeze(2)
-# plt.figure()
-# plt.imshow(image_src[0,:,:].detach().cpu(),cmap='hot')
-# plt.figure()
-# plt.imshow(image_trg[0,:,:].detach().cpu(),cmap='hot')
-# plt.figure()
-# plt.imshow(image_src[4,:,:].detach().cpu(),cmap='hot')
-# plt.figure()
-# plt.imshow(image_trg[4,:,:].detach().cpu(),cmap='hot')
-# plt.figure()
-# plt.imshow(image_src[9,:,:].detach().cpu(),cmap='hot')
-# plt.figure()
-# plt.imshow(image_trg[9,:,:].detach().cpu(),cmap='hot')
-# plt.figure()
-# plt.imshow(image_trg[12,:,:].detach().cpu(),cmap='hot')
-# plt.figure()
-# plt.imshow(image_src[15,:,:].detach().cpu(),cmap='hot')
-# plt.figure()
-# plt.imshow(image_trg[15,:,:].detach().cpu(),cmap='hot')
-# plt.figure()
-# plt.imshow(image_src[20,:,:].detach().cpu(),cmap='hot')
-# plt.figure()
-# plt.imshow(image_trg[20,:,:].detach().cpu(),cmap='hot')
-# plt.figure()
-# plt.imshow(image_src[24,:,:].detach().cpu(),cmap='hot')
-# plt.figure()
-# plt.imshow(image_trg[24,:,:].detach().cpu(),cmap='hot')
-# plt.colorbar()
-
-# 将图片转换为numpy,并保存为png文件
-image_max = image_src.max().detach().cpu().numpy()
-# print(image_max)
-image_min = image_src.min().detach().cpu().numpy()
-# 创建文件夹
-# os.makedirs("./1620_point",exist_ok=True)
-import cv2
-import numpy as np
-for i in range(0,10):
-    image_i = image_src[i,:,:].squeeze(0).detach().cpu().numpy()
-    image_i = (image_i - image_min)/(image_max-image_min)
-    LOS_real = Round_radar_los_real[i].detach().cpu().numpy()
-    rotation_axis = omega_vec[i].detach().cpu().numpy()
-    # np.savez("./1620_point/image"+str(i)+".npz", image=image_i, LOS = LOS_real, rotation_axis = rotation_axis)
-    image_i = np.uint8(image_i*255)
-    # cv2.imwrite("./1620_point/image"+str(i)+".png",image_i)
 
 deform_verts = torch.full(src_mesh.verts_packed().shape, 0.0, device=device, requires_grad=True)
 
@@ -483,7 +423,7 @@ for i in loop:
     optimizer.step()
     scheduler.step()
 
-filename = "/DATA/disk1/asteroid/asteroid_inverse/Instant-ngp/new_dataset/result/snr/"
+filename = "/DATA/disk1/asteroid/asteroid_inverse/Instant-ngp/new_dataset/result/snr/test"
 fullname = filename + "geo/30db"
 
 loss_image = loss_image
