@@ -28,7 +28,7 @@ dependencies:
   - c-ares=1.19.1=h5eee18b_0
   - ca-certificates=2025.2.25=h06a4308_0
   - cairo=1.16.0=hb05425b_5
-  - certifi=2025.4.26=py310h06a4308_0
+  - certifi=2025.6.15=py310h06a4308_0
   - cffi=1.17.1=py310h1fdaa30_0
   - cfitsio=3.470=h5893167_7
   - charls=2.2.0=h2531618_0
@@ -86,6 +86,7 @@ dependencies:
   - ipywidgets=8.1.5=py310h06a4308_0
   - jedi=0.19.2=py310h06a4308_0
   - jinja2=3.1.4=py310h06a4308_1
+  - joblib=1.4.2=py310h06a4308_0
   - jpeg=9e=h5eee18b_3
   - json5=0.9.25=py310h06a4308_0
   - jsonschema=4.23.0=py310h06a4308_0
@@ -254,6 +255,7 @@ dependencies:
   - rfc3986-validator=0.1.1=py310h06a4308_0
   - rpds-py=0.10.6=py310h4aa5aa6_1
   - scikit-image=0.24.0=py310h1128e8f_0
+  - scikit-learn=1.6.1=py310h6a678d5_0
   - scipy=1.14.1=py310h5f9d8c6_0
   - send2trash=1.8.2=py310h06a4308_0
   - setuptools=75.1.0=py310h06a4308_0
@@ -269,6 +271,7 @@ dependencies:
   - tenacity=9.0.0=py310h06a4308_0
   - terminado=0.17.1=py310h06a4308_0
   - tesseract=5.2.0=h6a678d5_2
+  - threadpoolctl=3.5.0=py310h2f386ee_0
   - tifffile=2023.4.12=py310h06a4308_0
   - tinycss2=1.2.1=py310h06a4308_0
   - tk=8.6.14=h39e8969_0
@@ -300,16 +303,21 @@ dependencies:
       - backcall==0.2.0
       - bm3d==4.0.3
       - bm4d==4.2.5
+      - choreographer==1.0.9
       - docopt==0.6.2
       - fsspec==2025.3.0
       - ipython==8.12.3
+      - kaleido==1.0.0
+      - logistro==1.1.0
       - lpips==0.1.4
       - markdown-it-py==3.0.0
       - mdurl==0.1.2
       - nerfacc==0.5.3
+      - orjson==3.10.18
       - pipreqs==0.5.0
       - pywavelets==1.8.0
       - rich==13.9.4
+      - simplejson==3.20.1
       - trimesh==4.6.9
       - yarg==0.1.9
 prefix: /root/miniconda3/envs/3d_env
