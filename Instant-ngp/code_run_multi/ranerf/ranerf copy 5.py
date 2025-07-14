@@ -366,10 +366,10 @@ device = torch.device("cuda:6" if torch.cuda.is_available() else "cpu")
 print(torch.cuda.is_available())
 
 # 载入数据
-folder_path = '/DATA/disk1/asteroid/asteroid_inverse/Instant-ngp/new_dataset/sys_data/tou_0.25round/30du_40dB'
+folder_path = '/DATA/disk1/asteroid/asteroid_inverse/Instant-ngp/new_dataset/sys_data/tou40du_wrong20du'
 
 # 生成保存路径
-experiment_name = 'experiment179'
+experiment_name = 'experiment197'
 if not os.path.exists('./Instant-ngp/model/'+ experiment_name):
     os.makedirs('./Instant-ngp/model/'+ experiment_name)
 
@@ -407,7 +407,7 @@ losses = []
 # 数据
 image_hight = 100
 image_width = 100
-image_num = 15
+image_num = 60
 
 for epoch in range(20000):
     # 对数据进行随机采样，得到给定batch_size的数据集

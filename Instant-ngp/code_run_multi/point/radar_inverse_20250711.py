@@ -126,7 +126,7 @@ scale_all = 0.05
 
 # 载入初始模型方式
 # 选择一种载入初始模型的方法
-flag = 2
+flag = 1
 if flag == 0:
     # 载入一个已有的Mesh模型
     trg_obj = './ImageGen/3dmodel/Geographos Radar-based, low-res(1).obj'
