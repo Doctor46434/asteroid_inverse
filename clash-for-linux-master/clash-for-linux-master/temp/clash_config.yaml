@@ -5,9 +5,9 @@ mode: Rule
 log-level: info
 external-controller: :9090
 proxies:
-  - {name: 美国直连01, server: hkus.lpynlink.xyz, port: 29991, type: vmess, uuid: cce73d34-e658-4209-bdea-c2a9b5627d8c, alterId: 0, cipher: auto, tls: true, skip-cert-verify: true, servername: gw.alicdn.com, udp: true}
-  - {name: 美国直连02, server: hkus.lpynlink.xyz, port: 29992, type: vmess, uuid: cce73d34-e658-4209-bdea-c2a9b5627d8c, alterId: 0, cipher: auto, tls: true, skip-cert-verify: true, servername: gw.alicdn.com, udp: true}
-  - {name: 入口机故障，先用上面的直连节点吧, server: hkin.lpynlink.xyz, port: 29894, type: vmess, uuid: cce73d34-e658-4209-bdea-c2a9b5627d8c, alterId: 0, cipher: auto, tls: true, skip-cert-verify: true, servername: gw.alicdn.com, udp: true}
+  - {name: 请升级客户端，老节点随时被阻断, server: hkn.lpynlink.xyz, port: 54451, type: ss, cipher: aes-128-gcm, password: cce73d34-e658-4209-bdea-c2a9b5627d8c, udp: true}
+  - {name: windows推荐clash verge rev, server: hkn.lpynlink.xyz, port: 54451, type: ss, cipher: aes-128-gcm, password: cce73d34-e658-4209-bdea-c2a9b5627d8c, udp: true}
+  - {name: 安卓推荐clash meta for android, server: hkn.lpynlink.xyz, port: 54451, type: ss, cipher: aes-128-gcm, password: cce73d34-e658-4209-bdea-c2a9b5627d8c, udp: true}
   - {name: 香港00, server: hkn.lpynlink.xyz, port: 54451, type: ss, cipher: aes-128-gcm, password: cce73d34-e658-4209-bdea-c2a9b5627d8c, udp: true}
   - {name: 香港01, server: hkn.lpynlink.xyz, port: 55551, type: ss, cipher: aes-128-gcm, password: cce73d34-e658-4209-bdea-c2a9b5627d8c, udp: true}
   - {name: 香港02, server: hkn.lpynlink.xyz, port: 55552, type: ss, cipher: aes-128-gcm, password: cce73d34-e658-4209-bdea-c2a9b5627d8c, udp: true}
@@ -30,8 +30,6 @@ proxies:
   - {name: 日本05, server: jpn.lpynlink.xyz, port: 47440, type: ss, cipher: chacha20-ietf-poly1305, password: cce73d34-e658-4209-bdea-c2a9b5627d8c, udp: true}
   - {name: 日本06, server: jpn.lpynlink.xyz, port: 47447, type: ss, cipher: chacha20-ietf-poly1305, password: cce73d34-e658-4209-bdea-c2a9b5627d8c, udp: true}
   - {name: 日本07, server: jpn.lpynlink.xyz, port: 47448, type: ss, cipher: chacha20-ietf-poly1305, password: cce73d34-e658-4209-bdea-c2a9b5627d8c, udp: true}
-  - {name: 日本08, server: jpn.lpynlink.xyz, port: 47451, type: ss, cipher: aes-128-gcm, password: cce73d34-e658-4209-bdea-c2a9b5627d8c, udp: true}
-  - {name: 日本09, server: jpn.lpynlink.xyz, port: 47453, type: ss, cipher: aes-128-gcm, password: cce73d34-e658-4209-bdea-c2a9b5627d8c, udp: true}
   - {name: 新加坡01, server: beiyongn.lpynlink.xyz, port: 47418, type: ss, cipher: chacha20-ietf-poly1305, password: cce73d34-e658-4209-bdea-c2a9b5627d8c, udp: true}
   - {name: 新加坡02, server: beiyongn.lpynlink.xyz, port: 47419, type: ss, cipher: chacha20-ietf-poly1305, password: cce73d34-e658-4209-bdea-c2a9b5627d8c, udp: true}
   - {name: 新加坡03, server: beiyongn.lpynlink.xyz, port: 47436, type: ss, cipher: chacha20-ietf-poly1305, password: cce73d34-e658-4209-bdea-c2a9b5627d8c, udp: true}
@@ -69,9 +67,9 @@ proxy-groups:
     proxies:
       - ♻️ 自动选择
       - 🎯 全球直连
-      - 美国直连01
-      - 美国直连02
-      - 入口机故障，先用上面的直连节点吧
+      - 请升级客户端，老节点随时被阻断
+      - windows推荐clash verge rev
+      - 安卓推荐clash meta for android
       - 香港00
       - 香港01
       - 香港02
@@ -94,8 +92,6 @@ proxy-groups:
       - 日本05
       - 日本06
       - 日本07
-      - 日本08
-      - 日本09
       - 新加坡01
       - 新加坡02
       - 新加坡03
@@ -132,9 +128,9 @@ proxy-groups:
     url: http://www.gstatic.com/generate_204
     interval: 300
     proxies:
-      - 美国直连01
-      - 美国直连02
-      - 入口机故障，先用上面的直连节点吧
+      - 请升级客户端，老节点随时被阻断
+      - windows推荐clash verge rev
+      - 安卓推荐clash meta for android
       - 香港00
       - 香港01
       - 香港02
@@ -157,8 +153,6 @@ proxy-groups:
       - 日本05
       - 日本06
       - 日本07
-      - 日本08
-      - 日本09
       - 新加坡01
       - 新加坡02
       - 新加坡03
@@ -196,9 +190,9 @@ proxy-groups:
       - 🔰 节点选择
       - ♻️ 自动选择
       - 🎯 全球直连
-      - 美国直连01
-      - 美国直连02
-      - 入口机故障，先用上面的直连节点吧
+      - 请升级客户端，老节点随时被阻断
+      - windows推荐clash verge rev
+      - 安卓推荐clash meta for android
       - 香港00
       - 香港01
       - 香港02
@@ -221,8 +215,6 @@ proxy-groups:
       - 日本05
       - 日本06
       - 日本07
-      - 日本08
-      - 日本09
       - 新加坡01
       - 新加坡02
       - 新加坡03
@@ -272,9 +264,9 @@ proxy-groups:
       - 🔰 节点选择
       - ♻️ 自动选择
       - 🎯 全球直连
-      - 美国直连01
-      - 美国直连02
-      - 入口机故障，先用上面的直连节点吧
+      - 请升级客户端，老节点随时被阻断
+      - windows推荐clash verge rev
+      - 安卓推荐clash meta for android
       - 香港00
       - 香港01
       - 香港02
@@ -297,8 +289,6 @@ proxy-groups:
       - 日本05
       - 日本06
       - 日本07
-      - 日本08
-      - 日本09
       - 新加坡01
       - 新加坡02
       - 新加坡03
@@ -360,9 +350,9 @@ proxy-groups:
     proxies:
       - 🎯 全球直连
       - 🔰 节点选择
-      - 美国直连01
-      - 美国直连02
-      - 入口机故障，先用上面的直连节点吧
+      - 请升级客户端，老节点随时被阻断
+      - windows推荐clash verge rev
+      - 安卓推荐clash meta for android
       - 香港00
       - 香港01
       - 香港02
@@ -385,8 +375,6 @@ proxy-groups:
       - 日本05
       - 日本06
       - 日本07
-      - 日本08
-      - 日本09
       - 新加坡01
       - 新加坡02
       - 新加坡03
@@ -423,9 +411,9 @@ proxy-groups:
     proxies:
       - 🔰 节点选择
       - 🎯 全球直连
-      - 美国直连01
-      - 美国直连02
-      - 入口机故障，先用上面的直连节点吧
+      - 请升级客户端，老节点随时被阻断
+      - windows推荐clash verge rev
+      - 安卓推荐clash meta for android
       - 香港00
       - 香港01
       - 香港02
@@ -448,8 +436,6 @@ proxy-groups:
       - 日本05
       - 日本06
       - 日本07
-      - 日本08
-      - 日本09
       - 新加坡01
       - 新加坡02
       - 新加坡03
@@ -487,9 +473,9 @@ proxy-groups:
       - 🔰 节点选择
       - 🎯 全球直连
       - ♻️ 自动选择
-      - 美国直连01
-      - 美国直连02
-      - 入口机故障，先用上面的直连节点吧
+      - 请升级客户端，老节点随时被阻断
+      - windows推荐clash verge rev
+      - 安卓推荐clash meta for android
       - 香港00
       - 香港01
       - 香港02
@@ -512,8 +498,6 @@ proxy-groups:
       - 日本05
       - 日本06
       - 日本07
-      - 日本08
-      - 日本09
       - 新加坡01
       - 新加坡02
       - 新加坡03
@@ -560,9 +544,9 @@ proxy-groups:
       - 🔰 节点选择
       - 🎯 全球直连
       - ♻️ 自动选择
-      - 美国直连01
-      - 美国直连02
-      - 入口机故障，先用上面的直连节点吧
+      - 请升级客户端，老节点随时被阻断
+      - windows推荐clash verge rev
+      - 安卓推荐clash meta for android
       - 香港00
       - 香港01
       - 香港02
@@ -585,8 +569,6 @@ proxy-groups:
       - 日本05
       - 日本06
       - 日本07
-      - 日本08
-      - 日本09
       - 新加坡01
       - 新加坡02
       - 新加坡03

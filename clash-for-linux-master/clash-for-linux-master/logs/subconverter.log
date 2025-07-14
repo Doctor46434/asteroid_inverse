@@ -103,3 +103,106 @@
 2025/07/10 Thu 15:08:41.895678 [815788 10739128][INFO] Artifact 'test_profile' generate SUCCESS!
 
 2025/07/10 Thu 15:08:41.895696 [815788 10739128][INFO] All artifact generated. Exiting...
+2025/07/14 Mon 17:15:23.451853 [1403714 10739128][INFO] SubConverter v0.7.2 starting up..
+]0;SubConverter v0.7.22025/07/14 Mon 17:15:23.452285 [1403714 10739128][INFO] Reading preference settings...
+2025/07/14 Mon 17:15:23.464785 [1403714 10739128][INFO] Updating ruleset url 'rules/LocalAreaNetwork.list' with group '🎯 全球直连'.
+2025/07/14 Mon 17:15:23.464875 [1403714 10739128][INFO] Updating ruleset url 'rules/MSServices.list' with group 'Ⓜ️ 微软服务'.
+2025/07/14 Mon 17:15:23.464967 [1403714 10739128][INFO] Updating ruleset url 'rules/DivineEngine/Surge/Ruleset/Unbreak.list' with group '🎯 全球直连'.
+2025/07/14 Mon 17:15:23.465053 [1403714 10739128][INFO] Updating ruleset url 'rules/NobyDa/Surge/AdRule.list' with group '🛑 全球拦截'.
+2025/07/14 Mon 17:15:23.465262 [1403714 10739128][INFO] Updating ruleset url 'rules/DivineEngine/Surge/Ruleset/Guard/Hijacking.list' with group '🛑 全球拦截'.
+2025/07/14 Mon 17:15:23.465339 [1403714 10739128][INFO] Updating ruleset url 'rules/DivineEngine/Surge/Ruleset/StreamingMedia/Video/Netflix.list' with group '🎥 NETFLIX'.
+2025/07/14 Mon 17:15:23.465416 [1403714 10739128][INFO] Updating ruleset url 'rules/DivineEngine/Surge/Ruleset/StreamingMedia/Streaming.list' with group '🌍 国外媒体'.
+2025/07/14 Mon 17:15:23.465498 [1403714 10739128][INFO] Updating ruleset url 'rules/lhie1/Surge/Surge 3/Provider/Media/Bilibili.list' with group '🌏 国内媒体'.
+2025/07/14 Mon 17:15:23.465569 [1403714 10739128][INFO] Updating ruleset url 'rules/lhie1/Surge/Surge 3/Provider/Media/iQiyi.list' with group '🌏 国内媒体'.
+2025/07/14 Mon 17:15:23.465637 [1403714 10739128][INFO] Updating ruleset url 'rules/lhie1/Surge/Surge 3/Provider/Media/Letv.list' with group '🌏 国内媒体'.
+2025/07/14 Mon 17:15:23.465706 [1403714 10739128][INFO] Updating ruleset url 'rules/lhie1/Surge/Surge 3/Provider/Media/MOO.list' with group '🌏 国内媒体'.
+2025/07/14 Mon 17:15:23.465772 [1403714 10739128][INFO] Updating ruleset url 'rules/lhie1/Surge/Surge 3/Provider/Media/Tencent Video.list' with group '🌏 国内媒体'.
+2025/07/14 Mon 17:15:23.465840 [1403714 10739128][INFO] Updating ruleset url 'rules/lhie1/Surge/Surge 3/Provider/Media/Youku.list' with group '🌏 国内媒体'.
+2025/07/14 Mon 17:15:23.465906 [1403714 10739128][INFO] Updating ruleset url 'rules/DivineEngine/Surge/Ruleset/Extra/Telegram/Telegram.list' with group '📲 电报信息'.
+2025/07/14 Mon 17:15:23.465975 [1403714 10739128][INFO] Updating ruleset url 'rules/DivineEngine/Surge/Ruleset/Global.list' with group '🔰 节点选择'.
+2025/07/14 Mon 17:15:23.466063 [1403714 10739128][INFO] Updating ruleset url 'rules/DivineEngine/Surge/Ruleset/Extra/Apple/Apple.list' with group '🍎 苹果服务'.
+2025/07/14 Mon 17:15:23.466139 [1403714 10739128][INFO] Updating ruleset url 'rules/DivineEngine/Surge/Ruleset/China.list' with group '🎯 全球直连'.
+2025/07/14 Mon 17:15:23.466208 [1403714 10739128][INFO] Updating ruleset url 'rules/NobyDa/Surge/Download.list' with group '🎯 全球直连'.
+2025/07/14 Mon 17:15:23.466268 [1403714 10739128][INFO] Adding rule 'GEOIP,CN,🎯 全球直连'.
+2025/07/14 Mon 17:15:23.466301 [1403714 10739128][INFO] Adding rule 'FINAL,🐟 漏网之鱼'.
+2025/07/14 Mon 17:15:23.466348 [1403714 10739128][INFO] Reading generator configuration...
+2025/07/14 Mon 17:15:23.466395 [1403714 10739128][INFO] Read generator configuration completed.
+
+2025/07/14 Mon 17:15:23.466412 [1403714 10739128][INFO] Generating all artifacts...
+2025/07/14 Mon 17:15:23.466429 [1403714 10739128][INFO] Generating artifact 'test'...
+2025/07/14 Mon 17:15:23.466485 [1403714 10739128][VERB] Imported 0 item(s).
+2025/07/14 Mon 17:15:23.466553 [1403714 10739128][INFO] Fetching node data from url '../../temp/clash.yaml'.
+2025/07/14 Mon 17:15:23.467551 [1403714 10739128][VERB] Received Link.
+2025/07/14 Mon 17:15:23.467579 [1403714 10739128][VERB] Parsing configuration file data...
+2025/07/14 Mon 17:15:23.470067 [1403714 10739128][VERB] Node  SSProvider - 请升级客户端，老节点随时被阻断  has been added.
+2025/07/14 Mon 17:15:23.470093 [1403714 10739128][VERB] Node  SSProvider - windows推荐clash verge rev  has been added.
+2025/07/14 Mon 17:15:23.470113 [1403714 10739128][VERB] Node  SSProvider - 安卓推荐clash meta for android  has been added.
+2025/07/14 Mon 17:15:23.470133 [1403714 10739128][VERB] Node  SSProvider - 🇭🇰 香港00  has been added.
+2025/07/14 Mon 17:15:23.470152 [1403714 10739128][VERB] Node  SSProvider - 🇭🇰 香港01  has been added.
+2025/07/14 Mon 17:15:23.470172 [1403714 10739128][VERB] Node  SSProvider - 🇭🇰 香港02  has been added.
+2025/07/14 Mon 17:15:23.470191 [1403714 10739128][VERB] Node  SSProvider - 🇭🇰 香港03  has been added.
+2025/07/14 Mon 17:15:23.470214 [1403714 10739128][VERB] Node  SSProvider - 🇭🇰 香港04  has been added.
+2025/07/14 Mon 17:15:23.470234 [1403714 10739128][VERB] Node  SSProvider - 🇭🇰 香港05  has been added.
+2025/07/14 Mon 17:15:23.470253 [1403714 10739128][VERB] Node  SSProvider - 🇭🇰 香港06  has been added.
+2025/07/14 Mon 17:15:23.470272 [1403714 10739128][VERB] Node  SSProvider - 🇭🇰 香港07  has been added.
+2025/07/14 Mon 17:15:23.470291 [1403714 10739128][VERB] Node  SSProvider - 🇭🇰 香港08  has been added.
+2025/07/14 Mon 17:15:23.470311 [1403714 10739128][VERB] Node  SSProvider - 🇭🇰 香港09  has been added.
+2025/07/14 Mon 17:15:23.470330 [1403714 10739128][VERB] Node  SSProvider - 🇨🇳 台湾01  has been added.
+2025/07/14 Mon 17:15:23.470350 [1403714 10739128][VERB] Node  SSProvider - 🇨🇳 台湾02  has been added.
+2025/07/14 Mon 17:15:23.470369 [1403714 10739128][VERB] Node  SSProvider - 🇨🇳 台湾03  has been added.
+2025/07/14 Mon 17:15:23.470389 [1403714 10739128][VERB] Node  SSProvider - 🇨🇳 台湾04  has been added.
+2025/07/14 Mon 17:15:23.470409 [1403714 10739128][VERB] Node  SSProvider - 🇨🇳 台湾Hinet动态IP  has been added.
+2025/07/14 Mon 17:15:23.470429 [1403714 10739128][VERB] Node  SSProvider - 🇯🇵 日本01  has been added.
+2025/07/14 Mon 17:15:23.470448 [1403714 10739128][VERB] Node  SSProvider - 🇯🇵 日本02  has been added.
+2025/07/14 Mon 17:15:23.470467 [1403714 10739128][VERB] Node  SSProvider - 🇯🇵 日本03  has been added.
+2025/07/14 Mon 17:15:23.470487 [1403714 10739128][VERB] Node  SSProvider - 🇯🇵 日本04  has been added.
+2025/07/14 Mon 17:15:23.470506 [1403714 10739128][VERB] Node  SSProvider - 🇯🇵 日本05  has been added.
+2025/07/14 Mon 17:15:23.470526 [1403714 10739128][VERB] Node  SSProvider - 🇯🇵 日本06  has been added.
+2025/07/14 Mon 17:15:23.470545 [1403714 10739128][VERB] Node  SSProvider - 🇯🇵 日本07  has been added.
+2025/07/14 Mon 17:15:23.470564 [1403714 10739128][VERB] Node  SSProvider - 🇸🇬 新加坡01  has been added.
+2025/07/14 Mon 17:15:23.470584 [1403714 10739128][VERB] Node  SSProvider - 🇸🇬 新加坡02  has been added.
+2025/07/14 Mon 17:15:23.470604 [1403714 10739128][VERB] Node  SSProvider - 🇸🇬 新加坡03  has been added.
+2025/07/14 Mon 17:15:23.470624 [1403714 10739128][VERB] Node  SSProvider - 🇸🇬 新加坡04  has been added.
+2025/07/14 Mon 17:15:23.470644 [1403714 10739128][VERB] Node  SSProvider - 🇸🇬 新加坡05  has been added.
+2025/07/14 Mon 17:15:23.470663 [1403714 10739128][VERB] Node  SSProvider - 🇺🇲 美国00  has been added.
+2025/07/14 Mon 17:15:23.470682 [1403714 10739128][VERB] Node  SSProvider - 🇺🇲 美国01  has been added.
+2025/07/14 Mon 17:15:23.470701 [1403714 10739128][VERB] Node  SSProvider - 🇺🇲 美国02  has been added.
+2025/07/14 Mon 17:15:23.470721 [1403714 10739128][VERB] Node  SSProvider - 🇺🇲 美国03  has been added.
+2025/07/14 Mon 17:15:23.470740 [1403714 10739128][VERB] Node  SSProvider - 🇺🇲 美国04  has been added.
+2025/07/14 Mon 17:15:23.470759 [1403714 10739128][VERB] Node  SSProvider - 🇺🇲 美国05  has been added.
+2025/07/14 Mon 17:15:23.470778 [1403714 10739128][VERB] Node  SSProvider - 🇺🇲 美国06  has been added.
+2025/07/14 Mon 17:15:23.470797 [1403714 10739128][VERB] Node  SSProvider - 🇺🇲 美国07  has been added.
+2025/07/14 Mon 17:15:23.470817 [1403714 10739128][VERB] Node  SSProvider - 🇺🇲 美国08  has been added.
+2025/07/14 Mon 17:15:23.470836 [1403714 10739128][VERB] Node  SSProvider - 🇫🇷 法国01  has been added.
+2025/07/14 Mon 17:15:23.470856 [1403714 10739128][VERB] Node  SSProvider - 🇩🇪 德国01  has been added.
+2025/07/14 Mon 17:15:23.470875 [1403714 10739128][VERB] Node  SSProvider - 🇬🇧 英国01  has been added.
+2025/07/14 Mon 17:15:23.470894 [1403714 10739128][VERB] Node  SSProvider - 🇬🇧 英国02  has been added.
+2025/07/14 Mon 17:15:23.470913 [1403714 10739128][VERB] Node  SSProvider - 🇲🇾 马来西亚 01  has been added.
+2025/07/14 Mon 17:15:23.470936 [1403714 10739128][VERB] Node  SSProvider - 🇻🇳 越南 01  has been added.
+2025/07/14 Mon 17:15:23.470955 [1403714 10739128][VERB] Node  SSProvider - 🇰🇷韩国 01  has been added.
+2025/07/14 Mon 17:15:23.470975 [1403714 10739128][VERB] Node  SSProvider - 🇭🇰 香港备用03  has been added.
+2025/07/14 Mon 17:15:23.470994 [1403714 10739128][VERB] Node  SSProvider - 🇭🇰 香港备用04  has been added.
+2025/07/14 Mon 17:15:23.471014 [1403714 10739128][VERB] Node  SSProvider - 🇭🇰 香港备用05  has been added.
+2025/07/14 Mon 17:15:23.471033 [1403714 10739128][VERB] Node  SSProvider - 🇭🇰 香港备用06  has been added.
+2025/07/14 Mon 17:15:23.471052 [1403714 10739128][VERB] Node  SSProvider - 🇭🇰 香港备用07  has been added.
+2025/07/14 Mon 17:15:23.471072 [1403714 10739128][VERB] Node  SSProvider - 🇯🇵 备用日本01  has been added.
+2025/07/14 Mon 17:15:23.471092 [1403714 10739128][VERB] Node  SSProvider - 🇯🇵 备用日本02  has been added.
+2025/07/14 Mon 17:15:23.471112 [1403714 10739128][VERB] Node  SSProvider - 🇺🇲 备用美国01  has been added.
+2025/07/14 Mon 17:15:23.471131 [1403714 10739128][VERB] Node  SSProvider - 🇺🇲 备用美国02  has been added.
+2025/07/14 Mon 17:15:23.471150 [1403714 10739128][VERB] Node  SSProvider - 🇺🇲 备用网址Lanpangyun.one  has been added.
+2025/07/14 Mon 17:15:23.471166 [1403714 10739128][VERB] Filter done.
+2025/07/14 Mon 17:15:23.471659 [1403714 10739128][INFO] Generate target: Clash
+2025/07/14 Mon 17:15:23.489642 [1403714 10739128][INFO] Generate completed.
+2025/07/14 Mon 17:15:23.490317 [1403714 10739128][INFO] Artifact 'test' generate SUCCESS!
+
+2025/07/14 Mon 17:15:23.490340 [1403714 10739128][INFO] Generating artifact 'test_profile'...
+2025/07/14 Mon 17:15:23.490372 [1403714 10739128][INFO] Trying to load profile 'profiles/example_profile.ini'.
+2025/07/14 Mon 17:15:23.490398 [1403714 10739128][INFO] Trying to parse profile 'profiles/example_profile.ini'.
+2025/07/14 Mon 17:15:23.490467 [1403714 10739128][VERB] Imported 0 item(s).
+2025/07/14 Mon 17:15:23.490509 [1403714 10739128][INFO] Fetching node data from url 'ss://Y2hhY2hhMjAtaWV0Zi1wb2x5MTMwNTpwYXNzd29yZA@www.example.com:1080#Example'.
+2025/07/14 Mon 17:15:23.491349 [1403714 10739128][VERB] Received Link.
+2025/07/14 Mon 17:15:23.491411 [1403714 10739128][INFO] Generate target: Clash
+2025/07/14 Mon 17:15:23.503324 [1403714 10739128][INFO] Generate completed.
+2025/07/14 Mon 17:15:23.503720 [1403714 10739128][INFO] Artifact 'test_profile' generate SUCCESS!
+
+2025/07/14 Mon 17:15:23.503741 [1403714 10739128][INFO] All artifact generated. Exiting...
