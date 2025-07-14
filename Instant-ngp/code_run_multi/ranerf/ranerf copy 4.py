@@ -366,10 +366,10 @@ device = torch.device("cuda:5" if torch.cuda.is_available() else "cpu")
 print(torch.cuda.is_available())
 
 # 载入数据
-folder_path = '/DATA/disk1/asteroid/asteroid_inverse/Instant-ngp/new_dataset/sys_data/arr/30du_15dB'
+folder_path = '/DATA/disk1/asteroid/asteroid_inverse/Instant-ngp/new_dataset/sys_data/tou_0.5round/30du_40dB'
 
 # 生成保存路径
-experiment_name = 'experiment173'
+experiment_name = 'experiment178'
 if not os.path.exists('./Instant-ngp/model/'+ experiment_name):
     os.makedirs('./Instant-ngp/model/'+ experiment_name)
 

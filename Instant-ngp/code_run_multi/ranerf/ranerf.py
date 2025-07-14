@@ -366,10 +366,10 @@ device = torch.device("cuda:1" if torch.cuda.is_available() else "cpu")
 print(torch.cuda.is_available())
 
 # 载入数据
-folder_path = '/DATA/disk1/asteroid/asteroid_inverse/Instant-ngp/new_dataset/sys_data/arr/30du_40dB'
+folder_path = '/DATA/disk1/asteroid/asteroid_inverse/Instant-ngp/new_dataset/sys_data/arr_0.5round/30du_40dB'
 
 # 生成保存路径
-experiment_name = 'experiment169'
+experiment_name = 'experiment174'
 if not os.path.exists('./Instant-ngp/model/'+ experiment_name):
     os.makedirs('./Instant-ngp/model/'+ experiment_name)
 
@@ -379,7 +379,7 @@ images,LOS_dirs,omegas = loaddata(folder_path)
 model = NeRF(input_ch = 63, input_ch_views = 27, use_viewdirs = True).to(device)
 
 # # 指定预训练模型的路径
-# pretrained_model_path = '/DATA/disk1/asteroid/asteroid_inverse/Instant-ngp/model/experiment108/model_state_dict.pth'  # 修改为您的预训练模型路径
+# pretrained_model_path = '/DATA/disk1/asteroid/asteroid_inverse/Instant-ngp/model/experiment157/model_state_dict.pth'  # 修改为您的预训练模型路径
 
 # if os.path.exists(pretrained_model_path):
 #     print(f"正在加载预训练模型: {pretrained_model_path}")

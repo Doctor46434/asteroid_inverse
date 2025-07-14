@@ -95,12 +95,29 @@ def plot_pointcloud(mesh, title=""):
 mpl.rcParams['savefig.dpi'] = 80
 mpl.rcParams['figure.dpi'] = 80
 
+# 设置需要更改的参数
+# cuda编号
+cuda_id = "cuda:1"
+
 # Set the device
 if torch.cuda.is_available():
-    device = torch.device("cuda:2")
+    device = torch.device(cuda_id)
 else:
     device = torch.device("cpu")
     print("WARNING: CPU only, this will be slow!")
+
+
+
+# 读取路径
+data_path = '/DATA/disk1/asteroid/asteroid_inverse/Instant-ngp/new_dataset/sys_data/arr_0.5round/30du_40dB'
+# 数据量
+batch = 30
+# 视线方向集合
+theta = torch.linspace(0,math.pi-math.pi/batch,batch).to(device)
+# 输出路径
+output_path = '/DATA/disk1/asteroid/asteroid_inverse/Instant-ngp/new_dataset/result/peroid/arr0.5'
+
+
 
     
 # 整体放缩系数
@@ -269,7 +286,7 @@ ISAR_render1 = ISAR_render(device)
 # image_input = image_batch['image_batch']
 
 # 输入数据2
-image_input,_,_ = loaddata('/DATA/disk1/asteroid/asteroid_inverse/Instant-ngp/new_dataset/sys_data/geo_round/30du_30dB')
+image_input,_,_ = loaddata(data_path)
 # 将列表转换为torch
 image_input = torch.stack(image_input, dim=0)
 image_input = image_input.to(device)
@@ -311,11 +328,9 @@ Omega = torch.tensor([0.004532090125293*1], device=device)
 SpinAxis = SpinAxis.unsqueeze(0)
 Omega = Omega.unsqueeze(0)
 
-batch = 60
-
 RadarLos = torch.tensor([-math.sqrt(3)/2,0,1/2], device=device)
 # RadarLos = torch.tensor([-1/2,0,-math.sqrt(3)/2], device=device)
-theta = torch.linspace(0,2*math.pi-2*math.pi/60,batch).to(device)
+theta = torch.linspace(0,math.pi-math.pi/batch,batch).to(device)
 
 axis_x = torch.tensor([0.0], device=device)
 axis_y = torch.tensor([0.0], device=device)
@@ -328,13 +343,13 @@ Round_radar_los_real = vec_rot(RadarLos,axis_x,axis_y,axis_z,-theta)
 # print(Round_radar_los)
 # print(Round_radar_los.shape)
 
-# 生成测试数据
-image_src = ISAR_render1(src_mesh, Round_radar_los[0:25], SpinAxis[0:25], Omega[0:25])
-# 取模归一化
-image_src = torch.abs(image_src)
-max1,_ = torch.max(image_src,dim=2)
-max2,_ = torch.max(max1,dim=1)
-image_src = image_src/max2.unsqueeze(1).unsqueeze(2)
+# # 生成测试数据
+# image_src = ISAR_render1(src_mesh, Round_radar_los[0:25], SpinAxis[0:25], Omega[0:25])
+# # 取模归一化
+# image_src = torch.abs(image_src)
+# max1,_ = torch.max(image_src,dim=2)
+# max2,_ = torch.max(max1,dim=1)
+# image_src = image_src/max2.unsqueeze(1).unsqueeze(2)
 
 deform_verts = torch.full(src_mesh.verts_packed().shape, 0.0, device=device, requires_grad=True)
 
@@ -370,7 +385,7 @@ for i in loop:
     new_src_mesh = src_mesh.offset_verts(deform_verts)
     
     # 每轮选取三个视角进行训练
-    random_numbers = np.random.choice(range(0, 60), 6, replace=False)
+    random_numbers = np.random.choice(range(0, batch), 6, replace=False)
     image_src = ISAR_render1(new_src_mesh, Round_radar_los[random_numbers,:], SpinAxis, Omega)
     # 取模归一化
     image_src = torch.abs(image_src)
@@ -423,8 +438,11 @@ for i in loop:
     optimizer.step()
     scheduler.step()
 
-filename = "/DATA/disk1/asteroid/asteroid_inverse/Instant-ngp/new_dataset/result/snr/test"
-fullname = filename + "geo/30db"
+fullname = output_path
+
+# 生成保存路径
+if not os.path.exists(fullname):
+    os.makedirs(fullname) 
 
 loss_image = loss_image
 
@@ -438,11 +456,6 @@ ax.legend(fontsize="16")
 ax.set_xlabel("Iteration", fontsize="16")
 ax.set_ylabel("Loss", fontsize="16")
 ax.set_title("Loss vs iterations", fontsize="16")
-
-
-# 生成保存路径
-if not os.path.exists(fullname):
-    os.makedirs(fullname) 
 
 # 将图片保存在指定路径
 plt.savefig(fullname + "/loss.png", dpi=300, bbox_inches='tight')
@@ -462,7 +475,7 @@ plt.imshow(image_src[0,:,:].detach().cpu(),cmap='hot')
 
 
 
-for i in range(60):
+for i in range(batch):
     image_src = ISAR_render1(new_src_mesh, Round_radar_los[i:i+1,:], SpinAxis, Omega)
     image_src = torch.abs(image_src)
     max1,_ = torch.max(image_src,dim=2)
