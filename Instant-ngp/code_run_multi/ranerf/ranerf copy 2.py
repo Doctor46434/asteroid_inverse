@@ -362,14 +362,14 @@ def compute_1norm_samples(model, batch_size=1000):
     
     return norm_loss
 
-device = torch.device("cuda:3" if torch.cuda.is_available() else "cpu")
+device = torch.device("cuda:6" if torch.cuda.is_available() else "cpu")
 print(torch.cuda.is_available())
 
 # 载入数据
-folder_path = '/DATA/disk1/asteroid/asteroid_inverse/Instant-ngp/new_dataset/sys_data/geo40du_right'
+folder_path = '/DATA/disk1/asteroid/asteroid_inverse/Instant-ngp/new_dataset/sys_data/tou30_luoxuan_convert'
 
 # 生成保存路径
-experiment_name = 'experiment194'
+experiment_name = 'experiment203'
 if not os.path.exists('./Instant-ngp/model/'+ experiment_name):
     os.makedirs('./Instant-ngp/model/'+ experiment_name)
 

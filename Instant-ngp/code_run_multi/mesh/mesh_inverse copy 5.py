@@ -81,6 +81,20 @@ else:
     device = torch.device("cpu")
     print("WARNING: CPU only, this will be slow!")
 
+# batchsize
+batch = 15
+# 雷达视线方向1
+RadarLos = torch.tensor([0,math.sin(30*math.pi/180),math.cos(30*math.pi/180)], device=device)
+# 角度采样
+theta = torch.linspace(2*math.pi,2*math.pi/batch+3/4*2*math.pi,batch).to(device)
+# 输入数据路径
+data_path = '/DATA/disk1/asteroid/asteroid_inverse/Instant-ngp/new_dataset/sys_data/tou_0.25round/30du_40dB'
+# 输出数据路径
+full_path = "/DATA/disk1/asteroid/asteroid_inverse/Instant-ngp/new_dataset/result/peroid_mesh/tou_0.25round"
+# 生成保存路径
+if not os.path.exists(full_path):
+    os.makedirs(full_path) 
+
 # 载入初始模型方式
 # 选择一种载入初始模型的方法
 flag = 2
@@ -152,7 +166,7 @@ if flag == 1:
     verts = verts + torch.tensor([-1.5, 0, 0], device=device)
 
     # 整体放缩
-    verts = verts * 3
+    verts = verts * 0.3
 
     # 合并面片，并更新第二个球体的面片索引
     faces1 = sphere1.faces_packed()
@@ -193,12 +207,12 @@ if flag == 2:
         
         return ellipsoid
     
-    sphere1 = create_ellipsoid(4, device, scale_factors=(1.0, 1.0, 2.0))
+    sphere1 = create_ellipsoid(4, device, scale_factors=(2.0, 1.0, 1.0))
     vert = sphere1.verts_packed()
     vert = vert * 0.5
 
     # 将模型绕y轴旋转90度
-    theta = torch.tensor(torch.pi / 2).to(device)
+    # theta = torch.tensor(torch.pi / 2).to(device)
     # # 旋转矩阵 (绕y轴)
     # R = torch.tensor([
     #     [torch.cos(theta), -torch.sin(theta), 0],
@@ -234,11 +248,7 @@ def vec_rot(vec,axis_x,axis_y,axis_z,theta):
 
     return vec_rot
 
-# batchsize
-batch = 30
-# 雷达视线方向1
-RadarLos = torch.tensor([0,1/2,math.sqrt(3)/2], device=device)
-theta = torch.linspace(2*math.pi,2*math.pi/batch,batch).to(device)
+
 
 axis_x = torch.tensor([0.0], device=device)
 axis_y = torch.tensor([1.0], device=device)
@@ -604,7 +614,7 @@ def loaddata(folder_path):
     return images_normalize,LOS_dirs,omegas
 
 # 输入数据2
-image_input,_,_ = loaddata('/DATA/disk1/asteroid/asteroid_inverse/Instant-ngp/new_dataset/sys_data/arr/30du_10dB')
+image_input,_,_ = loaddata(data_path)
 # 将列表转换为torch
 image_input = torch.stack(image_input, dim=0)
 image_input = image_input.to(device)
@@ -635,7 +645,7 @@ w_normal = 10
 # Weight for mesh laplacian smoothing
 w_laplacian = 100
 # Plot period for the losses
-plot_period = 250
+plot_period = 750
 loop = tqdm(range(Niter))
 
 image_losses = []
@@ -651,7 +661,7 @@ for i in loop:
     new_src_mesh = trg_mesh.offset_verts(deform_verts)
     
     # 每轮选取三个视角进行训练
-    random_numbers = np.random.choice(range(0, 30), 6, replace=False)
+    random_numbers = np.random.choice(range(0, batch), 6, replace=False)
     Meshes_new = visible_mesh1(new_src_mesh,Round_radar_los[random_numbers])
     image_src = mesh_radar_render1(Meshes_new,Round_radar_los[random_numbers],omega_vec[random_numbers,:],omega[random_numbers],dopplercoefficient)     
     image_src = torch.rot90(image_src,k=1,dims=(1,2))
@@ -687,15 +697,20 @@ for i in loop:
     normal_losses.append(float(loss_normal.detach().cpu()))
     laplacian_losses.append(float(loss_laplacian.detach().cpu()))
     
-    # # Plot mesh
-    # if i % plot_period == 0:
-    #     plot_pointcloud(new_src_mesh, title="iter: %d" % i)
-    #     plt.figure()
-    #     plt.imshow(image_src[0,:,:].detach().cpu(),cmap='hot')
-    #     plt.colorbar()
-    #     plt.figure()
-    #     plt.imshow(image_trg_sample[0,:,:].detach().cpu(),cmap='hot')
-    #     plt.colorbar()
+    # Plot mesh
+    if i % plot_period == 0:
+        # plot_pointcloud(new_src_mesh, title="iter: %d" % i)
+        plt.figure()
+        plt.imshow(image_src[0,:,:].detach().cpu(),cmap='hot')
+        plt.colorbar()
+        # 将图片保存
+        plt.savefig(full_path + "/image_src_iter_%d.png" % i, dpi=300, bbox_inches='tight')
+        plt.figure()
+        plt.imshow(image_trg_sample[0,:,:].detach().cpu(),cmap='hot')
+        plt.colorbar()
+        # 将图片保存
+        plt.savefig(full_path + "/image_trg_iter_%d.png" % i, dpi=300, bbox_inches='tight')
+        
         
     # Optimization step
     loss.backward()
@@ -703,12 +718,9 @@ for i in loop:
     scheduler.step()
 
 
-filename = "/DATA/disk1/asteroid/asteroid_inverse/Instant-ngp/new_dataset/result/snr/test"
-full_path = filename + "arr/10db"
 
-# 生成保存路径
-if not os.path.exists(full_path):
-    os.makedirs(full_path) 
+
+
 
 # 将图片保存在指定路径
 plt.savefig(full_path + "/loss.png", dpi=300, bbox_inches='tight')
@@ -754,7 +766,7 @@ max2,_ = torch.max(max1,dim=1)
 image_src = image_src/max2.unsqueeze(1).unsqueeze(2)
 plt.figure()
 plt.imshow(image_src[0,:,:].detach().cpu(),cmap='hot')
-for i in range(30):
+for i in range(batch):
     Meshes_new = visible_mesh1(new_src_mesh,Round_radar_los[i:i+1])
     image_src = mesh_radar_render1(Meshes_new,Round_radar_los[i:i+1],omega_vec[i:i+1,:],omega[i:i+1],dopplercoefficient)     
     image_src = torch.abs(image_src)

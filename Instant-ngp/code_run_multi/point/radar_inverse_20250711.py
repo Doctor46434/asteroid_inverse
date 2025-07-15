@@ -109,15 +109,19 @@ else:
 
 
 # 读取路径
-data_path = '/DATA/disk1/asteroid/asteroid_inverse/Instant-ngp/new_dataset/sys_data/arr_0.5round/30du_40dB'
+data_path = '/DATA/disk1/asteroid/asteroid_inverse/Instant-ngp/new_dataset/sys_data/arr40du_right'
 # 数据量
-batch = 30
+batch = 60
 # 视线方向集合
-theta = torch.linspace(0,math.pi-math.pi/batch,batch).to(device)
+theta = torch.linspace(0,2*math.pi-2*math.pi/batch,batch).to(device)
+# 雷达视线方向角度
+RadarLos = torch.tensor([-math.cos(40*math.pi/180),0,math.sin(40*math.pi/180)], device=device)
 # 输出路径
-output_path = '/DATA/disk1/asteroid/asteroid_inverse/Instant-ngp/new_dataset/result/peroid/arr0.5'
+output_path = '/DATA/disk1/asteroid/asteroid_inverse/Instant-ngp/new_dataset/result/wrong_angle_point/arr40du_right'
 
-
+# 生成保存路径
+if not os.path.exists(output_path):
+    os.makedirs(output_path) 
 
     
 # 整体放缩系数
@@ -328,9 +332,9 @@ Omega = torch.tensor([0.004532090125293*1], device=device)
 SpinAxis = SpinAxis.unsqueeze(0)
 Omega = Omega.unsqueeze(0)
 
-RadarLos = torch.tensor([-math.sqrt(3)/2,0,1/2], device=device)
+
 # RadarLos = torch.tensor([-1/2,0,-math.sqrt(3)/2], device=device)
-theta = torch.linspace(0,math.pi-math.pi/batch,batch).to(device)
+# theta = torch.linspace(0,math.pi-math.pi/batch,batch).to(device)
 
 axis_x = torch.tensor([0.0], device=device)
 axis_y = torch.tensor([0.0], device=device)
@@ -361,7 +365,7 @@ scheduler = optim.lr_scheduler.CosineAnnealingLR(optimizer, T_max=4000,eta_min=5
 # Number of optimization steps
 Niter = 4000
 # Weight for the image loss
-w_image = 0.0005
+w_image = 0.0003
 # Weight for mesh edge loss
 w_edge = 0.35
 # Weight for mesh normal consistency
@@ -423,15 +427,19 @@ for i in loop:
     normal_losses.append(float(loss_normal.detach().cpu()))
     laplacian_losses.append(float(loss_laplacian.detach().cpu()))
     
-    # # Plot mesh
-    # if i % plot_period == 0:
-    #     plot_pointcloud(new_src_mesh, title="iter: %d" % i)
-    #     plt.figure()
-    #     plt.imshow(image_src[0,:,:].detach().cpu(),cmap='hot')
-    #     plt.colorbar()
-    #     plt.figure()
-    #     plt.imshow(image_trg_sample[0,:,:].detach().cpu(),cmap='hot')
-    #     plt.colorbar()
+    # Plot mesh
+    if i % plot_period == 0:
+        # plot_pointcloud(new_src_mesh, title="iter: %d" % i)
+        plt.figure()
+        plt.imshow(image_src[0,:,:].detach().cpu(),cmap='hot')
+        plt.colorbar()
+        # 保存图片到路径
+        plt.savefig(output_path + "/image_iter_" + str(i) + ".png", dpi=300, bbox_inches='tight')
+        plt.figure()
+        plt.imshow(image_trg_sample[0,:,:].detach().cpu(),cmap='hot')
+        plt.colorbar()
+        # 保存图片到路径
+        plt.savefig(output_path + "/image_trg_iter_" + str(i) + ".png", dpi=300, bbox_inches='tight')
         
     # Optimization step
     loss.backward()
@@ -440,9 +448,7 @@ for i in loop:
 
 fullname = output_path
 
-# 生成保存路径
-if not os.path.exists(fullname):
-    os.makedirs(fullname) 
+
 
 loss_image = loss_image
 

@@ -97,7 +97,7 @@ mpl.rcParams['figure.dpi'] = 80
 
 # 设置需要更改的参数
 # cuda编号
-cuda_id = "cuda:2"
+cuda_id = "cuda:1"
 
 # Set the device
 if torch.cuda.is_available():
@@ -109,13 +109,19 @@ else:
 
 
 # 读取路径
-data_path = '/DATA/disk1/asteroid/asteroid_inverse/Instant-ngp/new_dataset/sys_data/arr_0.25round/30du_40dB'
+data_path = '/DATA/disk1/asteroid/asteroid_inverse/Instant-ngp/new_dataset/sys_data/arr40du_wrong20du'
 # 数据量
-batch = 15
+batch = 60
 # 视线方向集合
-theta = torch.linspace(0,math.pi/2-math.pi/2/batch,batch).to(device)
+theta = torch.linspace(0,2*math.pi-2*math.pi/batch,batch).to(device)
+# 雷达视线方向角度
+RadarLos = torch.tensor([-math.cos(20*math.pi/180),0,math.sin(20*math.pi/180)], device=device)
 # 输出路径
-output_path = '/DATA/disk1/asteroid/asteroid_inverse/Instant-ngp/new_dataset/result/peroid/arr0.25'
+output_path = '/DATA/disk1/asteroid/asteroid_inverse/Instant-ngp/new_dataset/result/wrong_angle_point/arr20du_wrong'
+
+# 生成保存路径
+if not os.path.exists(output_path):
+    os.makedirs(output_path) 
 
 
 
@@ -328,9 +334,9 @@ Omega = torch.tensor([0.004532090125293*1], device=device)
 SpinAxis = SpinAxis.unsqueeze(0)
 Omega = Omega.unsqueeze(0)
 
-RadarLos = torch.tensor([-math.sqrt(3)/2,0,1/2], device=device)
+# RadarLos = torch.tensor([-math.sqrt(3)/2,0,1/2], device=device)
 # RadarLos = torch.tensor([-1/2,0,-math.sqrt(3)/2], device=device)
-theta = torch.linspace(0,math.pi-math.pi/batch,batch).to(device)
+# theta = torch.linspace(0,math.pi-math.pi/batch,batch).to(device)
 
 axis_x = torch.tensor([0.0], device=device)
 axis_y = torch.tensor([0.0], device=device)

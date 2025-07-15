@@ -109,13 +109,16 @@ else:
 
 
 # 读取路径
-data_path = '/DATA/disk1/asteroid/asteroid_inverse/Instant-ngp/new_dataset/sys_data/tou_0.25round/30du_40dB'
+data_path = '/DATA/disk1/asteroid/asteroid_inverse/Instant-ngp/new_dataset/sys_data/tou40du_wrong20du'
 # 数据量
-batch = 15
+batch = 60
+# 雷达视线方向角度
+RadarLos = torch.tensor([-math.cos(20*math.pi/180),0,math.sin(20*math.pi/180)], device=device)
 # 视线方向集合
-theta = torch.linspace(0,math.pi/2-math.pi/2/batch,batch).to(device)
+theta = torch.linspace(0,2*math.pi-2*math.pi/batch,batch).to(device)
 # 输出路径
-output_path = '/DATA/disk1/asteroid/asteroid_inverse/Instant-ngp/new_dataset/result/peroid/tou0.25'
+output_path = '/DATA/disk1/asteroid/asteroid_inverse/Instant-ngp/new_dataset/result/wrong_angle_point/tou20du_wrong'
+
 
 
 
@@ -328,9 +331,9 @@ Omega = torch.tensor([0.004532090125293*1], device=device)
 SpinAxis = SpinAxis.unsqueeze(0)
 Omega = Omega.unsqueeze(0)
 
-RadarLos = torch.tensor([-math.sqrt(3)/2,0,1/2], device=device)
+# RadarLos = torch.tensor([-math.sqrt(3)/2,0,1/2], device=device)
 # RadarLos = torch.tensor([-1/2,0,-math.sqrt(3)/2], device=device)
-theta = torch.linspace(0,math.pi-math.pi/batch,batch).to(device)
+# theta = torch.linspace(0,math.pi-math.pi/batch,batch).to(device)
 
 axis_x = torch.tensor([0.0], device=device)
 axis_y = torch.tensor([0.0], device=device)
