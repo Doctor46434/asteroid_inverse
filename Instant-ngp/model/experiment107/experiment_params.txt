@@ -84,3 +84,5 @@
 数据集路径: /DATA/disk1/asteroid/asteroid_inverse/ImageGen/3dmodel/wangguangxing_mat/12.5dB
 实验参数: experiment107
 数据集路径: /DATA/disk1/asteroid/asteroid_inverse/ImageGen/3dmodel/wangguangxing_mat/12.5dB
+实验参数: experiment107
+数据集路径: /DATA/disk1/asteroid/asteroid_inverse/ImageGen/3dmodel/wangguangxing_mat/15dB

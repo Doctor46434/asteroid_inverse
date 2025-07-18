@@ -183,7 +183,7 @@ def batchrender(omega,LOS,model,doppler_num):
     # rng.manual_seed(42)
     # output[:,0] = output[:,0] + torch.rand(output[:,0].shape,generator=rng).to(device)*0.1
     output = output.view(batch_size,distance_gap,n_gap,2)
-    render_equaltion = 2
+    render_equaltion = 1
     if render_equaltion == 0:
         Ti = torch.cumprod(torch.exp(-output[:,:,:,0]*distance_delta),dim=1)
         distance_profile = torch.sum(output[:,:,:,0]*(1-torch.exp(-output[:,:,:,1]*n_delta))*Ti,dim=2)
@@ -361,10 +361,10 @@ device = torch.device("cuda:2" if torch.cuda.is_available() else "cpu")
 print(torch.cuda.is_available())
 
 # 载入数据
-folder_path = '/DATA/disk1/asteroid/asteroid_inverse/ImageGen/3dmodel/2024on_submean_reverse_100/60du'
+folder_path = '/DATA/disk1/asteroid/asteroid_inverse/ImageGen/3dmodel/XXX/XXX_dilate_real_image_13.8du'
 
 # 生成保存路径
-experiment_name = 'experiment90'
+experiment_name = 'experiment210'
 if not os.path.exists('./Instant-ngp/model/'+ experiment_name):
     os.makedirs('./Instant-ngp/model/'+ experiment_name)
 
@@ -374,7 +374,7 @@ images,LOS_dirs,omegas = loaddata(folder_path)
 model = NeRF(input_ch = 63, input_ch_views = 27, use_viewdirs = True).to(device)
 
 # 指定预训练模型的路径
-pretrained_model_path = '/DATA/disk1/asteroid/asteroid_inverse/Instant-ngp/model/experiment88/model_state_dict.pth'  # 修改为您的预训练模型路径
+pretrained_model_path = '/DATA/disk1/asteroid/asteroid_inverse/Instant-ngp/model/experiment208/model_state_dict.pth'  # 修改为您的预训练模型路径
 
 if os.path.exists(pretrained_model_path):
     print(f"正在加载预训练模型: {pretrained_model_path}")
@@ -402,7 +402,7 @@ losses = []
 # 数据
 image_hight = 100
 image_width = 100
-image_num = 37
+image_num = 68
 
 for epoch in range(20000):
     # 对数据进行随机采样，得到给定batch_size的数据集

@@ -361,10 +361,10 @@ device = torch.device("cuda:1" if torch.cuda.is_available() else "cpu")
 print(torch.cuda.is_available())
 
 # 载入数据
-folder_path = '/DATA/disk1/asteroid/asteroid_inverse/ImageGen/3dmodel/2024on_submean_reverse_100/50du'
+folder_path = '/DATA/disk1/asteroid/asteroid_inverse/Instant-ngp/new_dataset/sys_data/contactball_rot90'
 
 # 生成保存路径
-experiment_name = 'experiment89'
+experiment_name = 'experiment207'
 if not os.path.exists('./Instant-ngp/model/'+ experiment_name):
     os.makedirs('./Instant-ngp/model/'+ experiment_name)
 
@@ -374,7 +374,7 @@ images,LOS_dirs,omegas = loaddata(folder_path)
 model = NeRF(input_ch = 63, input_ch_views = 27, use_viewdirs = True).to(device)
 
 # 指定预训练模型的路径
-pretrained_model_path = '/DATA/disk1/asteroid/asteroid_inverse/Instant-ngp/model/experiment88/model_state_dict.pth'  # 修改为您的预训练模型路径
+pretrained_model_path = '/DATA/disk1/asteroid/asteroid_inverse/Instant-ngp/model/experiment141/model_state_dict.pth'  # 修改为您的预训练模型路径
 
 if os.path.exists(pretrained_model_path):
     print(f"正在加载预训练模型: {pretrained_model_path}")
@@ -402,7 +402,7 @@ losses = []
 # 数据
 image_hight = 100
 image_width = 100
-image_num = 37
+image_num = 330
 
 for epoch in range(20000):
     # 对数据进行随机采样，得到给定batch_size的数据集
@@ -443,7 +443,7 @@ for epoch in range(20000):
 
 
     
-    adjust_learning_rate(optimizer,epoch,lr=5e-4)
+    adjust_learning_rate(optimizer,epoch,lr=1e-3)
 
     # range_image1 = distance_profile_batch.detach().cpu()
     # plt.imshow(range_image1)
