@@ -129,7 +129,11 @@ wangguanxing 实验全是27的
 
 208:渲染一个不对称双球 isar-nerf
 
+209：XXX的30du，进行一个渲染
 
+210:13.8du
+
+211;0du
 
 1. 用了一个sigmoid结果和一个relu结果，分别是experiment79 和 87
 2. 用了一个experiment20的结果，表示初始化为双星

@@ -361,10 +361,10 @@ device = torch.device("cuda:2" if torch.cuda.is_available() else "cpu")
 print(torch.cuda.is_available())
 
 # 载入数据
-folder_path = '/DATA/disk1/asteroid/asteroid_inverse/ImageGen/3dmodel/XXX/XXX_dilate_real_image_13.8du'
+folder_path = '/DATA/disk1/asteroid/asteroid_inverse/ImageGen/3dmodel/XXX/XXX_dilate_real_image_0du'
 
 # 生成保存路径
-experiment_name = 'experiment210'
+experiment_name = 'experiment211'
 if not os.path.exists('./Instant-ngp/model/'+ experiment_name):
     os.makedirs('./Instant-ngp/model/'+ experiment_name)
 
