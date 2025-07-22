@@ -1,0 +1,6 @@
+实验参数: experiment212
+数据集路径: /DATA/disk1/asteroid/asteroid_inverse/ImageGen/3dmodel/XXX/XXX_dilate_real_image_13.8du
+实验参数: experiment212
+数据集路径: /DATA/disk1/asteroid/asteroid_inverse/ImageGen/3dmodel/XXX/XXX_dilate_real_image_13.8du
+实验参数: experiment212
+数据集路径: /DATA/disk1/asteroid/asteroid_inverse/ImageGen/3dmodel/XXX/XXX_dilate_real_image_13.8du

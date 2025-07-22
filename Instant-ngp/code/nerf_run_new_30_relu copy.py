@@ -361,10 +361,10 @@ device = torch.device("cuda:2" if torch.cuda.is_available() else "cpu")
 print(torch.cuda.is_available())
 
 # 载入数据
-folder_path = '/DATA/disk1/asteroid/asteroid_inverse/ImageGen/3dmodel/XXX/XXX_dilate_real_image_0du'
+folder_path = '/DATA/disk1/asteroid/asteroid_inverse/ImageGen/3dmodel/XXX/XXX_dilate_real_image_13.8du'
 
 # 生成保存路径
-experiment_name = 'experiment211'
+experiment_name = 'experiment212'
 if not os.path.exists('./Instant-ngp/model/'+ experiment_name):
     os.makedirs('./Instant-ngp/model/'+ experiment_name)
 
@@ -374,7 +374,7 @@ images,LOS_dirs,omegas = loaddata(folder_path)
 model = NeRF(input_ch = 63, input_ch_views = 27, use_viewdirs = True).to(device)
 
 # 指定预训练模型的路径
-pretrained_model_path = '/DATA/disk1/asteroid/asteroid_inverse/Instant-ngp/model/experiment208/model_state_dict.pth'  # 修改为您的预训练模型路径
+pretrained_model_path = '/DATA/disk1/asteroid/asteroid_inverse/Instant-ngp/model/experiment211/model_state_dict.pth'  # 修改为您的预训练模型路径
 
 if os.path.exists(pretrained_model_path):
     print(f"正在加载预训练模型: {pretrained_model_path}")
@@ -410,9 +410,9 @@ for epoch in range(20000):
     # 对该方向的数据进行渲染
     distance_profile_batch,alpha = batchrender(omegas_batch_tensor*omega_real,LOS_dirs_batch_tensor,model,doppler_profil_num_tensor)
     # # # 单独计算Eikonal损失
-    # eikonal_loss = compute_eikonal_samples(model, batch_size=1000)
+    eikonal_loss = compute_eikonal_samples(model, batch_size=1000)
     # # # 调整Eikonal损失的权重
-    # weight_eikonal = adjust_eikonal_weight(epoch)
+    weight_eikonal = adjust_eikonal_weight(epoch)
 
     # print(f"alpha requires_grad: {alpha.requires_grad}")
     # print(f"alpha has grad_fn: {hasattr(alpha, 'grad_fn')}")
@@ -424,19 +424,20 @@ for epoch in range(20000):
     optimizer.zero_grad()
     # 计算损失函数
     distance_profile_batch_detach = distance_profile_batch.detach()
-    # loss = torch.sum((distance_profile_batch-range_profile_batch_tensor)**2) + weight_eikonal * eikonal_loss
+    loss = torch.sum((distance_profile_batch-range_profile_batch_tensor)**2) + weight_eikonal * eikonal_loss
     # 损失共由三部分组成
-    loss1 = torch.sum((distance_profile_batch-range_profile_batch_tensor)**2)
+    # loss1 = torch.sum((distance_profile_batch-range_profile_batch_tensor)**2)
     # loss2 = adjust_eikonal_weight(epoch)*compute_eikonal_samples(model, batch_size=1000)
     # 当轮数小于1000时，loss3不参与loss计算
     # 总是计算loss3，但在epoch<1000时分离它
-    loss3 = 1e-6 * torch.sum(alpha**2)
+    # loss3 = 1e-6 * torch.sum(alpha**2)
 
     epoch_factor = 0  # 0.0 或 1.0
-    loss = loss1
+    # loss = loss1
 
     print("Current epoch:",epoch,end=' ')
     print("Current loss:",loss.item())
+    print("Current eikonal loss:", eikonal_loss.item(), end=' ')
     # print("Current loss_1", loss1.item(), end=' ')
     # print("Current loss_3", norm_loss.item(), end=' ')
 
